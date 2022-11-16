@@ -1,7 +1,8 @@
 <div class="card" style="width: 18rem;">
-    <p class="featured" *ngIf="productInfo.featured"> ~featured~</p>
-    <br *ngIf="!productInfo.featured">
+  <div class = "parent">
     <img class="card-img-top" [src]="productInfo.image" alt="Card image cap">
+    <img class="featured" *ngIf="productInfo.featured" [src]="featuredBanner">
+  </div>
     <div class="card-body">
       <h5 class="card-title">{{productInfo.name}}</h5>
       <p class="card-text">{{productInfo.description}}</p>

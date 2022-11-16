@@ -6,22 +6,25 @@
     transition: .2s ease-out;
   
   }
-.featured{
-  text-align: center;
-  background-color: coral;
+.parent {
+  position: relative;
+  top: 0;
 }
-  img
-  {
-    justify-content: center;
-    top:0;
-    left:0;
-    height: auto;
-    width: auto;
-    max-height: 200px;
-    max-width: 307px;
-    left:0;
-  }
-  
+
+.card-img-top {
+  position: relative;
+  justify-content: center;
+  top:0;
+  height: auto;
+  width: auto;
+  max-height: 200px;
+  max-width: 307px;
+}
+.featured {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}  
   div {
     position: relative;
     transition: .2s ease-out;
