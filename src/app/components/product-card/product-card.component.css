@@ -6,10 +6,15 @@
     transition: .2s ease-out;
   
   }
-  
+.featured{
+  text-align: center;
+  background-color: coral;
+}
   img
   {
     justify-content: center;
+    top:0;
+    left:0;
     height: auto;
     width: auto;
     max-height: 200px;
