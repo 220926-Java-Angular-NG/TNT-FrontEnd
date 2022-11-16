@@ -17,6 +17,7 @@ export class ProductCardComponent implements OnInit{
   }[] = [];
   subscription!: Subscription;
   totalPrice: number = 0;
+  featuredBanner = "../../assets/images/Featured.png"
 
   @Input() productInfo!: Product;
 
