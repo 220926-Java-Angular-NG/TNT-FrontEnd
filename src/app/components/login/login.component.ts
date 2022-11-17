@@ -23,7 +23,10 @@ export class LoginComponent implements OnInit {
   
   onSubmit(): void {
     this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(
-      () => {
+      (currUser) => {
+        // hide user
+        currUser.password = ''
+        this.authService.setUser(currUser)
         this.authService.loggedIn=true;
       },
       (err) => console.log(err),

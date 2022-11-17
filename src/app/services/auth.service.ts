@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { user } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +11,63 @@ export class AuthService {
 
   authUrl: string = `${environment.baseUrl}/auth`;
   loggedIn: boolean = false;
+  user?:user
 
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string): Observable<any> {
+  login(email: string, password: string): Observable<user> {
     const payload = {email:email, password:password};
-    return this.http.post<any>(`${this.authUrl}/login`, payload, {headers: environment.headers, withCredentials: environment.withCredentials});
+    return this.http.post<user>(`${this.authUrl}/login`, payload, {headers: environment.headers, withCredentials: environment.withCredentials});
   }
 
-  logout(): void{
-    this.http.post(`${this.authUrl}/logout`, null);
+  logout(): Observable<any>{
+    return this.http.post<any>(`${this.authUrl}/logout`, null, {headers: environment.headers, withCredentials: environment.withCredentials});
   }
 
   register(firstName: string, lastName: string, email: string, password: string): Observable<any> {
     const payload = {firstName: firstName, lastName: lastName, email: email, password: password};
     return this.http.post<any>(`${this.authUrl}/register`, payload, {headers: environment.headers});
   }
+
+  setUser(user:user) {
+    this.user = user
+    localStorage.setItem('user', JSON.stringify(this.user))
+  }
+
+  // to get the user that is currently logged in
+  // will return a user with id = 0 if not logged in
+  getUser():user {
+    // if user is not logged in 
+    // if (!this.loggedIn) return {id:0}
+    // if user is already defined
+    if (this.user && this.user.id !== 0)
+      return this.user
+    else { // user is not defined, so fetch it
+      let tmp:user = this.fetchUser()
+      if (tmp.id !== 0) {
+        this.user = tmp
+        return this.user
+      }
+    }
+    // we dont have access to user so return false user
+    return {id:0}
+  }
+
+  fetchUser():user {
+    let tmp = localStorage.getItem('user')
+    let user:user = {id:0}
+    // TODO: if localstorage is empty, fetch the user again
+    if (tmp !== null)
+      user = JSON.parse(tmp)
+    return user
+  }
+
+
+  handleLogout():void {
+    localStorage.clear()
+    this.loggedIn =false
+    this.user = {id:0}
+  }
+
+
 }
