@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -17,11 +18,12 @@ export class ProductCardComponent implements OnInit{
   }[] = [];
   subscription!: Subscription;
   totalPrice: number = 0;
-  featuredBanner = "../../assets/images/Featured.png"
+  featuredBanner = "../../assets/images/featured.png"
 
   @Input() productInfo!: Product;
+  isLoggedIn = this.authService.loggedIn;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private authService:AuthService) { }
   
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe(
