@@ -9,6 +9,7 @@
       <label for="exampleInputPassword1">Password</label>
       <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Password">
     </div>
-    <button class="btn btn-primary" (click)="onSubmit()">Login</button>
+    <div *ngIf="loginFail == true">Username or password incorrect</div>
+    <button class="btn btn-primary"  [disabled]="!loginForm.valid" (click)="onSubmit()">Login</button>
     <button class="btn btn-primary" [routerLink]="['/register']">Register</button>
 </form>
