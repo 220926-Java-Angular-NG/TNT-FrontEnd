@@ -4,7 +4,7 @@
     max-width: 200px;
     height: fit-content;
     transition: .2s ease-out;
-  
+    justify-content: center;
   }
 .parent {
   position: relative;
@@ -15,6 +15,7 @@
   position: relative;
   justify-content: center;
   top:0;
+  left: 10px;
   height: auto;
   width: auto;
   max-height: 200px;
@@ -28,6 +29,7 @@
   div {
     position: relative;
     transition: .2s ease-out;
+    display: flex;
   }
   
   .card:hover{

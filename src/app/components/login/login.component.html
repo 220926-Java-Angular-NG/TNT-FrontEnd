@@ -12,3 +12,14 @@
     <button class="btn btn-primary" (click)="onSubmit()">Login</button>
     <button class="btn btn-primary" [routerLink]="['/register']">Register</button>
 </form>
+
+<div class="container">
+  <div class="row align-items-start">
+     <div class="col" *ngFor="let product of featuredProducts">
+          <app-product-card
+              class="cardListItem"
+              [productInfo]="product"
+          ></app-product-card> 
+      </div> 
+  </div>
+</div>
