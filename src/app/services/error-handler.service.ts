@@ -11,18 +11,23 @@ export class ErrorHandlerService {
 
   constructor() { }
 
-  handleError(error:any):string{
+  handleError(error:any):string[]{
     let errorMsg:string = "";
+
+    let errorMsgContent:string[] = ["",""];
 
     if(error.error instanceof ErrorEvent){
       // This would be a client-side error.
-      errorMsg = `Error: ${error.error.message}`;
+      errorMsgContent[1] = `Error: ${error.error.message}`;
     }else{
       // This would be a server-side error.
-      errorMsg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      
+      errorMsgContent[0] = `Error Code: ${error.status}`;
+      errorMsgContent[1] =`Message: ${error.message};`
+      
     }
     console.log(errorMsg);
-    return errorMsg
+    return errorMsgContent
   }
 
 }

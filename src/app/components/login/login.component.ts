@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     password: new UntypedFormControl('')
   })
 
-  error:string|undefined;
+  error:string[]|undefined;
   errorPresent:boolean = false;
 
   featuredProducts:Product[] = [];
