@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CartProduct } from 'src/app/models/cart';
 import { Product } from 'src/app/models/product';
 import { user } from 'src/app/models/user';
@@ -23,6 +24,17 @@ export class ProductCardComponent implements OnInit{
   cartItemId?:number
 
   constructor(private productService: ProductService, private cartService:CartService, private authService:AuthService) { }
+  cartCount!: number;
+  products: {
+    product: Product,
+    quantity: number
+  }[] = [];
+  subscription!: Subscription;
+  totalPrice: number = 0;
+  featuredBanner = "assets/images/featured.png"
+
+  isLoggedIn = this.authService.loggedIn;
+
   
   ngOnInit(): void {
     this.checkIfInCart()

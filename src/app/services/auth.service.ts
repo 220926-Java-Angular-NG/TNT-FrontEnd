@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { user } from '../models/user';
+import { Product } from '../models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,7 @@ export class AuthService {
   // to get the user that is currently logged in
   // will return a user with id = 0 if not logged in
   getUser():user {
+    this.loggedIn = true
     // if user is not logged in 
     // if (!this.loggedIn) return {id:0}
     // if user is already defined
@@ -50,6 +52,7 @@ export class AuthService {
       }
     }
     // we dont have access to user so return false user
+    this.loggedIn = false
     return {id:0}
   }
 
@@ -70,4 +73,7 @@ export class AuthService {
   }
 
 
+  public getFeaturedProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.authUrl}/featured`, {headers: environment.headers});
+  }
 }

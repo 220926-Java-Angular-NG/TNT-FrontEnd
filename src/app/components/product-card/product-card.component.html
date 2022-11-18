@@ -1,45 +1,58 @@
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" [src]="productInfo.image" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{productInfo.name}}</h5>
-      <p class="card-text">{{productInfo.description}}</p>
-    </div>
-    <div class="input-group input-group-sm mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-sm">$</span>
-      </div>
-      <input type="number" class="form-control" aria-label="Sizing example input" [value]="productInfo.price" aria-describedby="inputGroup-sizing-sm" disabled>
-    </div>
-    <div class="input-group input-group-sm mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-sm">Quantity in Stock</span>
-        </div>
-        <input type="number" class="form-control" aria-label="Sizing example input" [value]="productInfo.quantity" aria-describedby="inputGroup-sizing-sm" disabled>
-      </div>
-    <div class="card-body">
-      <div class="row" *ngIf="!isInCart">
-        <div class="col">
-          <button (click)="updateQuantity(-1)" class="btn btn-outline-dark p-1 text-center" style="min-width: 30px;">
-            -
-          </button>
-          <span class="px-2">{{quantity}}</span>
-          <button (click)="updateQuantity(1)" class="btn btn-outline-dark p-1 text-center"  style="min-width: 30px;">
-            +
-          </button>
-        </div>
-        <div class="col">
-          <button class="btn btn-outline-success" (click)="addToCart(productInfo)">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="row w-100 mx-auto text-center" *ngIf="isInCart" >
-        <div class="col ">
-          <button (click)="removeFromCart()" class="btn btn-outline-danger">Remove from Cart</button>
-        </div>
-      </div>
-
-    </div>
+<div class="card my-2 w-100" >
+  <div class="w-100 text-center mx-auto">
+    <!-- <img class=""  src="{{set.pack_image}}" alt="Card image cap"> -->
+    <img class="card-img-top" style="height: 15rem;" [src]="productInfo.image" alt="Card image cap">
+<img class="card-img-overlay p-3" *ngIf="productInfo.featured" [src]="featuredBanner">
   </div>
+    
+    
+  <div class="card-body">
+    <h5 class="card-title">{{productInfo.name}}</h5>
+    <!--
+      TODO: Matt will include this on product information page
+      <p class="card-text">{{productInfo.description}}</p>
+    -->
+  </div>
+  <div class="col-6 input-group input-group-sm mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-sm">$</span>
+    </div>
+    <input type="number" class="form-control" aria-label="Sizing example input" [value]="productInfo.price"
+      aria-describedby="inputGroup-sizing-sm" disabled>
+  </div>
+  <!-- 
+    TODO: Matt will include this on product information page
+    <div class="input-group input-group-sm mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-sm">Quantity in Stock</span>
+    </div>
+    <input type="number" class="form-control" aria-label="Sizing example input" [value]="productInfo.quantity"
+      aria-describedby="inputGroup-sizing-sm" disabled>
+  </div> -->
+  <div class="card-body m-0 px-1" *ngIf="isLoggedIn">
+    <div class="row w-100 m-0" *ngIf="!isInCart">
+      <div class="col-5">
+        <button (click)="updateQuantity(-1)" class="btn btn-outline-dark p-1 text-center  my-auto" style="min-width: 30px; height: 30px;">
+          -
+        </button>
+        <span class="px-2 my-auto">{{quantity}}</span>
+        <button (click)="updateQuantity(1)" class="btn btn-outline-dark p-1 text-center my-auto" style="min-width: 30px; height: 30px;">
+          +
+        </button>
+      </div>
+      <div class="col-7">
+        <button class="btn btn-outline-success  my-auto" (click)="addToCart(productInfo)">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="row w-100 m-0" *ngIf="isInCart">
+
+        <button (click)="removeFromCart()" class="mx-auto w-75 btn btn-outline-danger">Remove from Cart</button>
+
+    </div>
+
+  </div>
+</div>
 <!-- 
 
   <button *ngIf="isInWishList">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -14,11 +15,16 @@ export class LoginComponent implements OnInit {
     email: new UntypedFormControl(''),
     password: new UntypedFormControl('')
   })
+
+  featuredProducts:Product[] = [];
   
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.authService.getFeaturedProducts().subscribe(
+      (products)=>this.featuredProducts=products
+    )
   }
   
   onSubmit(): void {
