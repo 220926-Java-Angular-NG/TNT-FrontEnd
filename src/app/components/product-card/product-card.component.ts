@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/services/auth.service';
@@ -23,7 +24,7 @@ export class ProductCardComponent implements OnInit{
   @Input() productInfo!: Product;
   isLoggedIn = this.authService.loggedIn;
 
-  constructor(private productService: ProductService, private authService:AuthService) { }
+  constructor(private productService: ProductService, private authService:AuthService, private router:Router) { }
   
   ngOnInit(): void {
     this.subscription = this.productService.getCart().subscribe(
@@ -75,4 +76,9 @@ export class ProductCardComponent implements OnInit{
     this.subscription.unsubscribe();
   }
 
+  toProduct(id:number, allowed:boolean){
+    if(allowed){
+      this.router.navigateByUrl("/products/"+id)
+    }
+  }
 }
