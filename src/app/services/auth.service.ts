@@ -32,6 +32,7 @@ export class AuthService {
 
   setUser(user:user) {
     this.user = user
+    // localStorage only stores string... store the user as a string
     localStorage.setItem('user', JSON.stringify(this.user))
   }
 
@@ -60,7 +61,7 @@ export class AuthService {
     let tmp = localStorage.getItem('user')
     let user:user = {id:0}
     // TODO: if localstorage is empty, fetch the user again
-    if (tmp !== null)
+    if (tmp !== null) // localStorage only stores string... make sure we parse it to get its actual object
       user = JSON.parse(tmp)
     return user
   }
