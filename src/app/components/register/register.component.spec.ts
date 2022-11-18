@@ -22,4 +22,16 @@ describe('RegisterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('RegisterFail', () =>{
+
+    it('should create registerFail as false', () => {
+      expect(component.registerFail).toBeFalse();
+    })
+
+    it('should set registerFail from false to true if onSubmit returns an error', () => {
+      component.onSubmit();
+      expect(component.registerFail).toBeTrue();
+    })
+  })
 });

@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
     password: new UntypedFormControl('', [
       Validators.required
       // turning this validator off for ease of testing purposes
-      // ,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$')
+      ,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$')
     ])
   })
   
