@@ -3,6 +3,8 @@ import { FormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/form
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/services/auth.service';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
+import { MessagesService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-login',
@@ -16,15 +18,22 @@ export class LoginComponent implements OnInit {
     password: new UntypedFormControl('')
   })
 
+  error:string|undefined;
+  errorPresent:boolean = false;
+
   featuredProducts:Product[] = [];
   
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService,
+              private router: Router,
+              private errHandler:ErrorHandlerService,
+              private msg:MessagesService) { }
 
   ngOnInit(): void {
     this.authService.getFeaturedProducts().subscribe(
       (products)=>this.featuredProducts=products
     )
+    
   }
   
   onSubmit(): void {
@@ -32,7 +41,10 @@ export class LoginComponent implements OnInit {
       () => {
         this.authService.loggedIn=true;
       },
-      (err) => console.log(err),
+      (err) => {
+        this.error = this.errHandler.handleError(err);
+        this.errorPresent = true;
+      },
       () => this.router.navigate(['home'])
     );
   }
