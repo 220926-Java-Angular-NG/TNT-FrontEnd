@@ -1,0 +1,20 @@
+.card-img-top {
+    position: relative;
+    justify-content: center;
+    top:0;
+    left: 10px;
+    height: auto;
+    width: auto;
+    max-height: 200px;
+    max-width: 307px;
+  }
+
+.in-stock{
+    background-color: rgb(107, 134, 60);
+}
+.low-stock{
+    background-color:gold;
+}
+.no-stock{
+    background-color:crimson;
+}
