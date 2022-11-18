@@ -37,7 +37,8 @@ export class ProductCardComponent implements OnInit{
 
   
   ngOnInit(): void {
-    this.checkIfInCart()
+    if (this.isLoggedIn)
+      this.checkIfInCart()
   }
 
   // will add an item to the cart
