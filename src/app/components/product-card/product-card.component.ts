@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CartProduct } from 'src/app/models/cart';
 import { Product } from 'src/app/models/product';
-import { user } from 'src/app/models/user';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -43,7 +43,7 @@ export class ProductCardComponent implements OnInit{
 
   // will add an item to the cart
   addToCart(product: Product): void {
-      let currUser:user = this.authService.getUser()
+      let currUser:User = this.authService.getUser()
       let cartItem:CartProduct = {
         id:0,
         quantity:this.quantity,

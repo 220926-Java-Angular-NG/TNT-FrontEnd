@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { user } from '../models/user';
+import { User } from '../models/user';
 import { Product } from '../models/product';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class AuthService {
 
   authUrl: string = `${environment.baseUrl}/auth`;
   loggedIn: boolean = false;
-  user?:user
+  user?:User
 
   private _isLoggedIn = new BehaviorSubject<boolean>(false);
   private _isLoggedIn$ = this._isLoggedIn.asObservable();
@@ -27,9 +27,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string): Observable<user> {
+  login(email: string, password: string): Observable<User> {
     const payload = {email:email, password:password};
-    return this.http.post<user>(`${this.authUrl}/login`, payload, {headers: environment.headers, withCredentials: environment.withCredentials});
+    return this.http.post<User>(`${this.authUrl}/login`, payload, {headers: environment.headers, withCredentials: environment.withCredentials});
   }
 
   logout(): Observable<any>{
@@ -41,7 +41,7 @@ export class AuthService {
     return this.http.post<any>(`${this.authUrl}/register`, payload, {headers: environment.headers});
   }
 
-  setUser(user:user) {
+  setUser(user:User) {
     this.user = user
     // localStorage only stores string... store the user as a string
     localStorage.setItem('user', JSON.stringify(this.user))
@@ -49,7 +49,7 @@ export class AuthService {
 
   // to get the user that is currently logged in
   // will return a user with id = 0 if not logged in
-  getUser():user {
+  getUser():User {
     this.loggedIn = true
     this.setIsLoggedIn(this.loggedIn)
     // if user is not logged in 
@@ -58,7 +58,7 @@ export class AuthService {
     if (this.user && this.user.id !== 0)
       return this.user
     else { // user is not defined, so fetch it
-      let tmp:user = this.fetchUser()
+      let tmp:User = this.fetchUser()
       if (tmp.id !== 0) {
         this.user = tmp
         return this.user
@@ -70,9 +70,9 @@ export class AuthService {
     return {id:0}
   }
 
-  fetchUser():user {
+  fetchUser():User {
     let tmp = localStorage.getItem('user')
-    let user:user = {id:0}
+    let user:User = {id:0}
     // TODO: if localstorage is empty, fetch the user again
     if (tmp !== null) // localStorage only stores string... make sure we parse it to get its actual object
       user = JSON.parse(tmp)

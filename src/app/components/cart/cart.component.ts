@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartProduct } from 'src/app/models/cart';
 import { Product } from 'src/app/models/product';
-import { user } from 'src/app/models/user';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -45,7 +45,7 @@ export class CartComponent implements OnInit {
   }
 
   emptyCart(): void {
-    let user:user = this.authService.getUser()
+    let user:User = this.authService.getUser()
     // console.log(user)
     this.cartService.clearUserCart(user).subscribe(res => {
       console.log(res)

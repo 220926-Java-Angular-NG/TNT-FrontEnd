@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http'
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CartProduct } from '../models/cart';
-import { user } from '../models/user';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +58,7 @@ export class CartService {
         withCredentials: environment.withCredentials
       });
   }
-  public clearUserCart(user:user): Observable<any> {
+  public clearUserCart(user:User): Observable<any> {
     return this.http.delete<any>(
       environment.baseUrl+this.cartUrl+`/user/${user.id}`,
       {headers: environment.headers, 
