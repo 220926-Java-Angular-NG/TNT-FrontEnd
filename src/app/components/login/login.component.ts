@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
   }
 
   logInFail():boolean{
-    return this.respHandler.isError;
+    return this.respHandler.respPresent;
   }
 
   deleteResp():void{
