@@ -1,0 +1,27 @@
+<div *ngIf="product">
+    <h1>{{product.name}}</h1>
+    <div class="stock">
+        <span  class="in-stock" *ngIf="product.quantity>lowThreshold" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>In Stock</span>
+        <span  class="low-stock" *ngIf="product.quantity<=lowThreshold && product.quantity>0" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>Low Stock</span>
+        <span  class="no-stock" *ngIf="product.quantity<=0" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>Out of Stock</span>
+    </div>
+    <div class = "parent">
+        <img class="card-img-top" [src]="product.image" alt="Card image cap">
+    </div>
+      
+    <div class="card-body">
+        <p class="card-text">{{product.description}}</p>
+    </div>
+    <div class="input-group input-group-sm mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-sm">$</span>
+          <span class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>{{product.price}}</span>
+        </div>
+    </div>
+</div>
+<div *ngIf="!product">
+    <p>No product found.</p>
+</div>
+
+
+

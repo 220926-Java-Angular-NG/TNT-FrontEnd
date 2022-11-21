@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CartProduct } from 'src/app/models/cart';
 import { Product } from 'src/app/models/product';
@@ -23,7 +24,7 @@ export class ProductCardComponent implements OnInit{
   // if the item is in the user's cart: then this is the cart's ID
   cartItemId?:number
 
-  constructor(private productService: ProductService, private cartService:CartService, private authService:AuthService) { }
+  constructor(private productService: ProductService, private cartService:CartService, private authService:AuthService, private router: Router) { }
   cartCount!: number;
   products: {
     product: Product,
@@ -98,4 +99,9 @@ export class ProductCardComponent implements OnInit{
   ngOnDestroy() {
   }
 
+  toProduct(id:number, allowed:boolean){
+    if(allowed){
+      this.router.navigateByUrl("/products/"+id)
+    }
+  }
 }
