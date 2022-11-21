@@ -22,9 +22,14 @@ export class ProductCardComponent implements OnInit{
   // is the item in the user's cart?
   isInCart:boolean = false
   // if the item is in the user's cart: then this is the cart's ID
-  cartItemId?:number
 
-  constructor(private productService: ProductService, private cartService:CartService, private authService:AuthService, private router: Router) { }
+  // amount of items in the wish list
+  wishListCount!: number;
+  // the products in the wish list
+  wishList: Product[] = [];
+  
+  
+  cartItemId?:number
   cartCount!: number;
   products: {
     product: Product,
@@ -36,10 +41,18 @@ export class ProductCardComponent implements OnInit{
 
   isLoggedIn = this.authService.loggedIn;
 
+  constructor(private productService: ProductService, private cartService:CartService, private authService:AuthService, private router: Router) { }
+
   
   ngOnInit(): void {
     if (this.isLoggedIn)
       this.checkIfInCart()
+
+      this.subscription = this.productService.getWishList().subscribe(
+        (wishList) => {
+          this.wishListCount = wishList.wishListCount;
+          this.wishList = wishList.wishes;
+        });
   }
 
   // will add an item to the cart
@@ -94,6 +107,34 @@ export class ProductCardComponent implements OnInit{
         this.cartService.updateCartCount(this.authService.getUser().id)
       })
     }
+  }
+
+  isInWishList(product:Product): boolean {
+    this.productService.getWishList(this.authService.getUser().id).subscribe(_cartItems => {
+      _cartItems.forEach(item => {
+        if (this.productInfo.id === item.product.id) {
+          this.isInCart = true
+          this.cartItemId = item.id
+        }
+      })
+    }))
+
+  }
+
+  addToWishList(product:Product){
+    
+  }
+
+  removeFromWishList(product : Product) : void {
+
+    this.wishList.forEach((value,index)=>{
+      if(value==product) this.wishList.splice(index,1);
+  });
+    let wL = {
+      wishListCount: this.wishListCount - 1,
+      wishes: this.wishList
+    }
+    this.productService.setWishList(wL);
   }
 
   ngOnDestroy() {

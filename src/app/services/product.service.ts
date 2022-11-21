@@ -13,6 +13,12 @@ interface Cart {
   totalPrice: number;
 }
 
+interface WishList {
+
+  wishListCount: number;
+  wishes: Product[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,6 +40,21 @@ export class ProductService {
 
   setCart(latestValue: Cart) {
     return this._cart.next(latestValue);
+  }
+
+  private _wishList = new BehaviorSubject<WishList>({
+    wishListCount: 0,
+    wishes: []
+  });
+
+  private _wishList$ = this._wishList.asObservable();
+
+  getWishList(): Observable<WishList> {
+    return this._wishList$;
+  }
+
+  setWishList(latestValue: WishList) {
+    return this._wishList.next(latestValue);
   }
 
   constructor(private http: HttpClient) { }
