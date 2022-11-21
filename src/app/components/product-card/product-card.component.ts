@@ -110,14 +110,13 @@ export class ProductCardComponent implements OnInit{
   }
 
   isInWishList(product:Product): boolean {
-    this.productService.getWishList(this.authService.getUser().id).subscribe(_cartItems => {
-      _cartItems.forEach(item => {
+    this.productService.getWishList(this.authService.getUser().id).subscribe(_wishes => {
+      _wishes.forEach(item => {
         if (this.productInfo.id === item.product.id) {
-          this.isInCart = true
-          this.cartItemId = item.id
+          return true;
         }
       })
-    }))
+    });
 
   }
 

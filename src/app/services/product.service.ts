@@ -49,8 +49,12 @@ export class ProductService {
 
   private _wishList$ = this._wishList.asObservable();
 
-  getWishList(): Observable<WishList> {
-    return this._wishList$;
+  getWishList(userId:number): Observable<WishList> {
+    return this.http.get<WishList>(
+      environment.baseUrl+this.productUrl+`/user/${userId}`, 
+      {headers: environment.headers, 
+        withCredentials: environment.withCredentials
+      });
   }
 
   setWishList(latestValue: WishList) {
