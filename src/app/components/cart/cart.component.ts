@@ -29,10 +29,10 @@ export class CartComponent implements OnInit {
     private authService:AuthService) { }
 
   ngOnInit(): void {
-    this.cartService.getCart(this.authService.getUser().id).subscribe(cart => {
-      this.userCartProducts = cart
-      console.log(cart)
-    })
+      this.cartService.getCart(this.authService.getUser().id).subscribe(cart => {
+        this.userCartProducts = cart
+        console.log(cart)
+      })
     this.productService.getCart().subscribe(
       (cart) => {
         this.products = cart.products;
@@ -56,6 +56,7 @@ export class CartComponent implements OnInit {
       totalPrice: 0.00
     };
     this.productService.setCart(cart);
+    this.cartService.updateCartCount(user.id)
     this.router.navigate(['/home']);
   }
 

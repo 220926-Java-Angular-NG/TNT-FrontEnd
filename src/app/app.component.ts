@@ -8,7 +8,6 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'E-Commerce Client';
-  isLoggedIn = this.authService.loggedIn;
 
   constructor(private authService:AuthService){}
 }

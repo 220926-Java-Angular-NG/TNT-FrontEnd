@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { user } from '../models/user';
 import { Product } from '../models/product';
@@ -13,6 +13,17 @@ export class AuthService {
   authUrl: string = `${environment.baseUrl}/auth`;
   loggedIn: boolean = false;
   user?:user
+
+  private _isLoggedIn = new BehaviorSubject<boolean>(false);
+  private _isLoggedIn$ = this._isLoggedIn.asObservable();
+
+  isLoggedIn(): Observable<boolean> {
+    return this._isLoggedIn$;
+  }
+
+  setIsLoggedIn(latestValue: boolean) {
+    return this._isLoggedIn.next(latestValue);
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -40,6 +51,7 @@ export class AuthService {
   // will return a user with id = 0 if not logged in
   getUser():user {
     this.loggedIn = true
+    this.setIsLoggedIn(this.loggedIn)
     // if user is not logged in 
     // if (!this.loggedIn) return {id:0}
     // if user is already defined
@@ -54,6 +66,7 @@ export class AuthService {
     }
     // we dont have access to user so return false user
     this.loggedIn = false
+    this.setIsLoggedIn(this.loggedIn)
     return {id:0}
   }
 
@@ -70,6 +83,7 @@ export class AuthService {
   handleLogout():void {
     localStorage.clear()
     this.loggedIn =false
+    this.setIsLoggedIn(this.loggedIn)
     this.user = {id:0}
   }
 
