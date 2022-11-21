@@ -3,7 +3,7 @@ import { FormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/form
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/services/auth.service';
-import { ErrorHandlerService } from 'src/app/services/error-handler.service';
+import { ResponseHandlerService } from 'src/app/services/response-handler.service';
 import { MessagesService } from 'src/app/services/messages.service';
 
 @Component({
@@ -18,15 +18,14 @@ export class LoginComponent implements OnInit {
     password: new UntypedFormControl('')
   })
 
-  error:string[]|undefined;
-  errorPresent:boolean = false;
+  
 
   featuredProducts:Product[] = [];
   
 
   constructor(private authService: AuthService,
               private router: Router,
-              private errHandler:ErrorHandlerService,
+              private respHandler:ResponseHandlerService,
               private msg:MessagesService) { }
 
   ngOnInit(): void {
@@ -42,8 +41,8 @@ export class LoginComponent implements OnInit {
         this.authService.loggedIn=true;
       },
       (err) => {
-        this.error = this.errHandler.handleError(err);
-        this.errorPresent = true;
+        this.respHandler.switchRespPresent();
+        this.respHandler.handleError(err);
       },
       () => this.router.navigate(['home'])
     );
@@ -51,6 +50,19 @@ export class LoginComponent implements OnInit {
 
   register(): void {
     this.router.navigate(['register']);
+  }
+
+  getResponse():any{
+    return this.respHandler.responseMsg;
+  }
+
+  logInFail():boolean{
+    return this.respHandler.isError;
+  }
+
+  deleteResp():void{
+    this.respHandler.responseMsg = [];
+    this.respHandler.switchRespPresent();
   }
 
 }

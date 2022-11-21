@@ -1,6 +1,6 @@
 <img src="../../../assets/images/rev-logo.png" width="30%" height="30%" alt="Revature">
 
-<app-ui-ux-react [error] = "error" *ngIf="error" (close) = "error = undefined;"></app-ui-ux-react>
+<app-ui-ux-react [error] = "this.getResponse()" *ngIf="this.logInFail()" (close) = "this.deleteResp()"></app-ui-ux-react>
 
 <form id="login-form" [formGroup]="loginForm">
     <div class="form-group">

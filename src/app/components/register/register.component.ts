@@ -16,6 +16,8 @@ export class RegisterComponent implements OnInit {
     email: new UntypedFormControl(''),
     password: new UntypedFormControl('')
   })
+
+  error:string|undefined;
   
 
   constructor(private authService: AuthService, private router: Router) { }
