@@ -1,6 +1,6 @@
 <img src="../../../assets/images/rev-logo.png" width="30%" height="30%" alt="Revature">
 
-<app-ui-ux-react [error] = "this.getResponse()" *ngIf="this.logInFail()" (close) = "this.deleteResp()"></app-ui-ux-react>
+<app-ui-ux-react [notice] = "this.getResponse()" [noticeType]="this.responseType" *ngIf="this.logInFail()" (close) = "this.deleteResp()"></app-ui-ux-react>
 
 <form id="login-form" [formGroup]="loginForm">
     <div class="form-group">
@@ -16,6 +16,7 @@
     <button class="btn btn-primary" [routerLink]="['/register']">Register</button>
 </form>
 
+<!--
 <div class="container">
   <div class="row align-items-start">
      <div class="col" *ngFor="let product of featuredProducts">
@@ -26,3 +27,4 @@
       </div> 
   </div>
 </div>
+--->

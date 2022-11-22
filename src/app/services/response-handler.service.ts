@@ -12,6 +12,18 @@ export class ResponseHandlerService {
   isError:boolean = false;
   responseMsg:string[] = [];
 
+  noticeTypes:{[key:string]:string} = {
+    primary: "alert alert-primary",
+    secondary:"alert alert-secondary",
+    success:"alert alert-success",
+    danger:"alert alert-danger",
+    warning:"alert alert-warning",
+    info:"alert alert-info",
+    light:"alert alert-light",
+    dark:"alert alert-dark"
+
+  }
+
 
   constructor() { }
 
@@ -36,8 +48,8 @@ export class ResponseHandlerService {
     console.log(errorMsg);
   }
 
-  handleSuccess():string[]{
-    return [];
+  handleSuccess(status:string,message:string):void{
+    this.responseMsg = [status,message];
   }
 
   switchRespPresent():void{

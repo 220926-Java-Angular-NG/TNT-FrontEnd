@@ -1,5 +1,8 @@
 <img src="../../../assets/images/rev-logo.png" width="30%" height="30%" alt="Revature">
-<app-ui-ux-react [error] = "error" *ngIf="error" (close) = "error = undefined;"></app-ui-ux-react>
+
+<app-ui-ux-react [notice] = "" [noticeType]="'alert'" *ngIf="false" (close) = "false"></app-ui-ux-react>
+
+
 <form id="register-form" [formGroup]="registerForm">
     <div class="form-group">
         <label for="inputFirstName">First Name</label>

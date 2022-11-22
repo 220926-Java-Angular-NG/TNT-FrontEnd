@@ -8,18 +8,22 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class UiUxReactComponent implements OnInit {
 
-  @Input() error: any;
+  @Input() notice: any;
+  @Input() noticeType:any;
+
   @Output() close = new EventEmitter<void>();
 
-  
-
-  constructor() { }
+  constructor() { 
+  }
 
   ngOnInit(): void {
+   
   }
 
   onCloseClick(){
     this.close.emit();
   }
+
+  
 
 }

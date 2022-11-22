@@ -1,14 +1,13 @@
-<div class="alert alert-primary" role="alert">
-    <div></div>
+<div [ngClass]= "noticeType" role="alert">
     <div>
-        <div>{{error[0]}}</div>
-        <div>{{error[1]}}</div>
+        <div>{{notice[0]}}</div>
+        <div>{{notice[1]}}</div>
 
         <div class = "alert-box-actions text-right">
-            <button type = "button" class = "btn btn-primary" (click) = "onCloseClick()">Close</button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click) = "onCloseClick()">X</button>
+        </div>
     </div>
-  </div>
-
+</div>
 
 
 

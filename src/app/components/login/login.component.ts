@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   
 
   featuredProducts:Product[] = [];
+  responseType:any|undefined;
   
 
   constructor(private authService: AuthService,
@@ -35,16 +36,27 @@ export class LoginComponent implements OnInit {
     
   }
   
-  onSubmit(): void {
+  onSubmit():void {
     this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(
       () => {
         this.authService.loggedIn=true;
+        this.respHandler.switchRespPresent();
+        this.responseType = this.getResponseType('success');
+        this.respHandler.handleSuccess("LOGIN SUCCESSFUL","You have successfully loged in.");
       },
       (err) => {
         this.respHandler.switchRespPresent();
+        this.responseType = this.getResponseType('danger');
         this.respHandler.handleError(err);
       },
-      () => this.router.navigate(['home'])
+      () => {
+        setTimeout(() => {
+          this.respHandler.switchRespPresent();
+          this.router.navigate(['home'])
+        },3000)
+        
+        
+      }
     );
   }
 
@@ -54,6 +66,10 @@ export class LoginComponent implements OnInit {
 
   getResponse():any{
     return this.respHandler.responseMsg;
+  }
+
+  getResponseType(key:string):any{
+    return this.respHandler.noticeTypes[key];
   }
 
   logInFail():boolean{
