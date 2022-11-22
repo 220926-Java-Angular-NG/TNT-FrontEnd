@@ -36,8 +36,8 @@ export class AuthService {
     return this.http.post<any>(`${this.authUrl}/logout`, null, {headers: environment.headers, withCredentials: environment.withCredentials});
   }
 
-  register(firstName: string, lastName: string, email: string, password: string): Observable<any> {
-    const payload = {firstName: firstName, lastName: lastName, email: email, password: password};
+  register(firstName: string, lastName: string, email: string, password: string, wishList: Product[]): Observable<any> {
+    const payload = {firstName: firstName, lastName: lastName, email: email, password: password, wishList: wishList};
     return this.http.post<any>(`${this.authUrl}/register`, payload, {headers: environment.headers});
   }
 
@@ -77,6 +77,12 @@ export class AuthService {
     if (tmp !== null) // localStorage only stores string... make sure we parse it to get its actual object
       user = JSON.parse(tmp)
     return user
+  }
+
+  updateUser(user: User): Observable<any> {
+    const payload = {id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email, password: user.password, wishList: user.wishList};
+    return this.http.put<User>(`${this.authUrl}/register`, payload, {headers: environment.headers});
+
   }
 
 

@@ -15,6 +15,8 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductCardComponent implements OnInit{
 
+  userId! : number ;
+
   // the product we are rendering
   @Input() productInfo!: Product;
   // the quantity rendered
@@ -22,9 +24,14 @@ export class ProductCardComponent implements OnInit{
   // is the item in the user's cart?
   isInCart:boolean = false
   // if the item is in the user's cart: then this is the cart's ID
-  cartItemId?:number
 
-  constructor(private productService: ProductService, private cartService:CartService, private authService:AuthService, private router: Router) { }
+  // amount of items in the wish list
+  wishListCount!: number;
+  // the products in the wish list
+  wishList?: Product[];
+  
+  
+  cartItemId?:number
   cartCount!: number;
   products: {
     product: Product,
@@ -32,14 +39,21 @@ export class ProductCardComponent implements OnInit{
   }[] = [];
   subscription!: Subscription;
   totalPrice: number = 0;
-  featuredBanner = "assets/images/featured.png"
+  featuredBanner = "../../assets/images/Featured.png"
 
   isLoggedIn = this.authService.loggedIn;
 
+  constructor(private productService: ProductService, private cartService:CartService, private authService:AuthService, private router: Router) { }
+
   
   ngOnInit(): void {
-    if (this.isLoggedIn)
-      this.checkIfInCart()
+    if (this.isLoggedIn) this.checkIfInCart();
+
+
+    this.wishList = this.authService.getUser().wishList;
+   (this.wishList) ? this.wishListCount = this.wishList?.length : this.wishListCount = 0;
+    
+      
   }
 
   // will add an item to the cart
@@ -94,6 +108,58 @@ export class ProductCardComponent implements OnInit{
         this.cartService.updateCartCount(this.authService.getUser().id)
       })
     }
+  }
+
+  isInWishList(product:Product): boolean {
+
+    if (this.wishList){
+      for(let wish of this.wishList) {
+        if (wish.id === product.id){
+          return true;
+        }
+      }
+    }
+    
+    return false;
+
+  }
+
+  addToWishList(product:Product){
+
+    if (this.wishList) {
+      this.wishList.push(product);
+      this.wishListCount++;
+
+      
+      let wL = {
+        wishListCount: this.wishListCount,
+        wishes: this.wishList
+      }
+
+      this.productService.setWishList(wL);
+    }
+  }
+
+
+    
+
+  removeFromWishList(product : Product) : void {
+    if (this.wishList) {
+      for (let wish of this.wishList){
+        if (wish.id === product.id){
+          this.wishList = this.wishList.filter(w => w !== product)
+          this.wishListCount = this.wishList.length;
+        }
+      }
+      
+      let wL = {
+        wishListCount: this.wishListCount,
+        wishes: this.wishList
+      }
+      this.productService.setWishList(wL);
+    }
+
+    
   }
 
   ngOnDestroy() {
