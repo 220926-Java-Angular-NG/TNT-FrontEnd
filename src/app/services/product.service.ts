@@ -51,7 +51,7 @@ export class ProductService {
 
   getWishList(userId:number): Observable<WishList> {
     return this.http.get<WishList>(
-      environment.baseUrl+this.productUrl+`/user/${userId}`, 
+      `${environment.baseUrl}${this.productUrl}/user/${userId}`, 
       {headers: environment.headers, 
         withCredentials: environment.withCredentials
       });
@@ -75,6 +75,8 @@ export class ProductService {
     const payload = JSON.stringify(products);
     return this.http.patch<any>(environment.baseUrl+this.productUrl, payload, {headers: environment.headers, withCredentials: environment.withCredentials})
   }
+
+  
 
   
 }

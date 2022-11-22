@@ -15,6 +15,8 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductCardComponent implements OnInit{
 
+  userId! : number ;
+
   // the product we are rendering
   @Input() productInfo!: Product;
   // the quantity rendered
@@ -26,7 +28,7 @@ export class ProductCardComponent implements OnInit{
   // amount of items in the wish list
   wishListCount!: number;
   // the products in the wish list
-  wishList: Product[] = [];
+  wishList?: Product[];
   
   
   cartItemId?:number
@@ -37,7 +39,7 @@ export class ProductCardComponent implements OnInit{
   }[] = [];
   subscription!: Subscription;
   totalPrice: number = 0;
-  featuredBanner = "assets/images/featured.png"
+  featuredBanner = "../../assets/images/Featured.png"
 
   isLoggedIn = this.authService.loggedIn;
 
@@ -45,14 +47,13 @@ export class ProductCardComponent implements OnInit{
 
   
   ngOnInit(): void {
-    if (this.isLoggedIn)
-      this.checkIfInCart()
+    if (this.isLoggedIn) this.checkIfInCart();
 
-      this.subscription = this.productService.getWishList().subscribe(
-        (wishList) => {
-          this.wishListCount = wishList.wishListCount;
-          this.wishList = wishList.wishes;
-        });
+
+    this.wishList = this.authService.getUser().wishList;
+   (this.wishList) ? this.wishListCount = this.wishList?.length : this.wishListCount = 0;
+    
+      
   }
 
   // will add an item to the cart
@@ -110,30 +111,55 @@ export class ProductCardComponent implements OnInit{
   }
 
   isInWishList(product:Product): boolean {
-    this.productService.getWishList(this.authService.getUser().id).subscribe(_wishes => {
-      _wishes.forEach(item => {
-        if (this.productInfo.id === item.product.id) {
+
+    if (this.wishList){
+      for(let wish of this.wishList) {
+        if (wish.id === product.id){
           return true;
         }
-      })
-    });
+      }
+    }
+    
+    return false;
 
   }
 
   addToWishList(product:Product){
-    
+
+    if (this.wishList) {
+      this.wishList.push(product);
+      this.wishListCount++;
+
+      
+      let wL = {
+        wishListCount: this.wishListCount,
+        wishes: this.wishList
+      }
+
+      this.productService.setWishList(wL);
+    }
   }
 
-  removeFromWishList(product : Product) : void {
 
-    this.wishList.forEach((value,index)=>{
-      if(value==product) this.wishList.splice(index,1);
-  });
-    let wL = {
-      wishListCount: this.wishListCount - 1,
-      wishes: this.wishList
+    
+
+  removeFromWishList(product : Product) : void {
+    if (this.wishList) {
+      for (let wish of this.wishList){
+        if (wish.id === product.id){
+          this.wishList = this.wishList.filter(w => w !== product)
+          this.wishListCount = this.wishList.length;
+        }
+      }
+      
+      let wL = {
+        wishListCount: this.wishListCount,
+        wishes: this.wishList
+      }
+      this.productService.setWishList(wL);
     }
-    this.productService.setWishList(wL);
+
+    
   }
 
   ngOnDestroy() {
