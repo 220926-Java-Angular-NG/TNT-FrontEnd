@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { UiUxReactComponent } from './components/ui-ux-react/ui-ux-react.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HomepageComponent } from './homepage/homepage.component';
     CheckoutComponent,
     DisplayProductsComponent,
     ProductDetailsComponent,
-    HomepageComponent
+    HomepageComponent,
+    UiUxReactComponent
   ],
   imports: [
     BrowserModule,

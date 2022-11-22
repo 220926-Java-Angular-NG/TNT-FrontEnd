@@ -1,36 +1,12 @@
-<div class="container mt-5">
-  <div class="row text-center mx-auto">
+<img src="../../../assets/images/rev-logo.png" width="30%" height="30%" alt="Revature">
 
-    <form id="login-form" class="col-md-4 mx-auto" [formGroup]="loginForm">
-      <img src="../../../assets/images/rev-logo.png" width="300px" height="auto" alt="Revature">
-      <div class="form-group mt-4 ">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1"
-          aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted text-left">Ensure you enter the correct email</small>
-      </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1"
-          placeholder="Password">
-      </div>
-      <div class="row d-flex justify-content-around">
-        <div class="col w-50">
-          <button class="btn w-100 btn-primary" (click)="onSubmit()">Login</button>
-        </div>
-        <div class="col w-50">
-          <button class="btn w-100 btn-secondary" [routerLink]="['/register']">Register</button>
-        </div>
+<app-ui-ux-react [notice] = "this.getResponse()" [noticeType]="this.responseType" *ngIf="this.logInFail()" (close) = "this.deleteResp()"></app-ui-ux-react>
 
-      </div>
-    </form>
-
-  </div>
-  <hr>
-
-  <div class="container mt-5">
-    <div class="col text-center title h5 mb-3">
-      Featured Items
+<form id="login-form" [formGroup]="loginForm">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      <small id="emailHelp" class="form-text text-muted">Ensure you enter the correct email</small>
     </div>
     <div class="row m-0 d-flex justify-content-around text-center">
       <div class="col-lg-4 col-xl-3 mx-auto" *ngFor="let product of featuredProducts">
@@ -42,3 +18,16 @@
     <button class="btn btn-primary"  [disabled]="!loginForm.valid" (click)="onSubmit()">Login</button>
     <button class="btn btn-primary" [routerLink]="['/register']">Register</button>
 </form>
+
+<!--
+<div class="container">
+  <div class="row align-items-start">
+     <div class="col" *ngFor="let product of featuredProducts">
+          <app-product-card
+              class="cardListItem"
+              [productInfo]="product"
+          ></app-product-card> 
+      </div> 
+  </div>
+</div>
+--->

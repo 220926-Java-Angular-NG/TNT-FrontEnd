@@ -5,6 +5,8 @@ import { Product } from 'src/app/models/product';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/services/auth.service';
+import { ResponseHandlerService } from 'src/app/services/response-handler.service';
+import { MessagesService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-login',
@@ -23,9 +25,13 @@ export class LoginComponent implements OnInit {
   featuredProducts:Product[] = [];
 
   loggedInSubscription!:Subscription
+  responseType:any|undefined;
   
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService,
+              private router: Router,
+              private respHandler:ResponseHandlerService,
+              private msg:MessagesService) { }
 
   ngOnInit(): void {
     this.loggedInSubscription = this.authService.isLoggedIn().subscribe(isLoggedIn => {
@@ -34,21 +40,33 @@ export class LoginComponent implements OnInit {
     this.authService.getFeaturedProducts().subscribe(
       (products)=>this.featuredProducts=products
     )
+    
   }
   
-  onSubmit(): void {
+  onSubmit():void {
     this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(
       (currUser) => {
         // hide user
         currUser.password = ''
         this.authService.setUser(currUser)
         this.authService.loggedIn=true;
+        this.respHandler.switchRespPresent();
+        this.responseType = this.getResponseType('success');
+        this.respHandler.handleSuccess("LOGIN SUCCESSFUL","You have successfully loged in.");
       },
       (err) => {
-        this.loginFail = true;
-      console.log(err);
+        this.respHandler.switchRespPresent();
+        this.responseType = this.getResponseType('danger');
+        this.respHandler.handleError(err);
       },
-      () => this.router.navigate(['home'])
+      () => {
+        setTimeout(() => {
+          this.respHandler.switchRespPresent();
+          this.router.navigate(['home'])
+        },3000)
+        
+        
+      }
     );
   }
 
@@ -61,6 +79,23 @@ export class LoginComponent implements OnInit {
   
   ngOnDestroy() {
     this.loggedInSubscription.unsubscribe();
+  }
+  
+  getResponse():any{
+    return this.respHandler.responseMsg;
+  }
+
+  getResponseType(key:string):any{
+    return this.respHandler.noticeTypes[key];
+  }
+
+  logInFail():boolean{
+    return this.respHandler.respPresent;
+  }
+
+  deleteResp():void{
+    this.respHandler.responseMsg = [];
+    this.respHandler.switchRespPresent();
   }
 
 }

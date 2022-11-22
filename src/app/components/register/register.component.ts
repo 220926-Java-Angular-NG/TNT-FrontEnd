@@ -24,6 +24,7 @@ export class RegisterComponent implements OnInit {
   })
 
   loggedInSubscription!:Subscription
+  error:string|undefined;
   
 
   constructor(private authService: AuthService, private router: Router) { }
