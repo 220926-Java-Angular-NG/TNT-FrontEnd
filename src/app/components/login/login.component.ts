@@ -50,18 +50,19 @@ export class LoginComponent implements OnInit {
         currUser.password = ''
         this.authService.setUser(currUser)
         this.authService.loggedIn=true;
-        this.respHandler.switchRespPresent();
+        if(this.respHandler.respPresent==false) this.respHandler.switchRespPresent();
         this.responseType = this.getResponseType('success');
         this.respHandler.handleSuccess("LOGIN SUCCESSFUL","You have successfully loged in.");
       },
       (err) => {
-        this.respHandler.switchRespPresent();
+
+        if(this.respHandler.respPresent==false) this.respHandler.switchRespPresent();
         this.responseType = this.getResponseType('danger');
         this.respHandler.handleError(err);
       },
       () => {
         setTimeout(() => {
-          this.respHandler.switchRespPresent();
+          if(this.respHandler.respPresent==true) this.respHandler.switchRespPresent();
           this.router.navigate(['home'])
         },3000)
         
@@ -73,6 +74,7 @@ export class LoginComponent implements OnInit {
   
 
   register(): void {
+    this.respHandler.switchRespPresent();
     this.router.navigate(['register']);
   }
 
