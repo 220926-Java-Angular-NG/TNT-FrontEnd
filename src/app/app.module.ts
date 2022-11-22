@@ -13,7 +13,7 @@ import { DisplayProductsComponent } from './components/display-products/display-
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { HomepageComponent } from './homepage/homepage.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
 import { UiUxReactComponent } from './components/ui-ux-react/ui-ux-react.component';
 import { WishListComponent } from './components/wish-list/wish-list.component';
 

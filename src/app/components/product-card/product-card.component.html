@@ -9,10 +9,6 @@
   <div class="card-title px-3">
     
     <h5 class="card-title">{{productInfo.name}}</h5>
-    <!--
-      TODO: Matt will include this on product information page
-      <p class="card-text">{{productInfo.description}}</p>
-    -->
   </div>
   <div class="row card-text w-100 m-0 px-3">
     <p class="h6 text-left  pt-0">
@@ -26,7 +22,7 @@
     </div>
 
     <input type="number" class="form-control" aria-label="Sizing example input" [value]="productInfo.price" aria-describedby="inputGroup-sizing-sm" disabled>
-  </div>
+  </div> -->
     
   <div class="card-body m-0 px-1" *ngIf="isLoggedIn">
     <div class="row w-100 m-0" *ngIf="!isInCart">
@@ -40,7 +36,7 @@
           style="min-width: 30px; height: 30px;">
           +
         </button>
-      </div>
+       </div> 
       <div class="col-7">
         <button class="btn btn-outline-success  my-auto" (click)="addToCart(productInfo)">Add to Cart</button>
       </div>
@@ -57,5 +53,5 @@
   </div>
 
   </div>
-</div> -->
+</div> 
 

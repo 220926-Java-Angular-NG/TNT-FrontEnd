@@ -6,7 +6,7 @@ import { DisplayProductsComponent } from './components/display-products/display-
 import { LoginComponent } from './components/login/login.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { RegisterComponent } from './components/register/register.component';
-import { HomepageComponent } from './homepage/homepage.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
 import { WishListComponent } from './components/wish-list/wish-list.component';
 
 const routes: Routes = [
