@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { Subscription } from 'rxjs';
@@ -13,9 +13,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  loginFail = false;
+
   loginForm = new UntypedFormGroup({
-    email: new UntypedFormControl(''),
-    password: new UntypedFormControl('')
+    email: new UntypedFormControl('', [Validators.required, Validators.email]),
+    password: new UntypedFormControl('', Validators.required)
   })
 
   featuredProducts:Product[] = [];
@@ -42,10 +44,15 @@ export class LoginComponent implements OnInit {
         this.authService.setUser(currUser)
         this.authService.loggedIn=true;
       },
-      (err) => console.log(err),
+      (err) => {
+        this.loginFail = true;
+      console.log(err);
+      },
       () => this.router.navigate(['home'])
     );
   }
+
+  
 
   register(): void {
     this.router.navigate(['register']);

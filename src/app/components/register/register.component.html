@@ -1,32 +1,40 @@
-<div class="container mt-5">
-  <div class="row text-center mx-auto">
-    <form id="register-form" class="col-md-5 col-10 mx-auto" [formGroup]="registerForm">
-      <img src="../../../assets/images/rev-logo.png" width="300px" height="auto" alt="Revature">
-        <div class="form-group text-left mt-4 ">
-            <label for="inputFirstName">First Name</label>
-            <input type="text" class="form-control" formControlName="fname" id="inputFirstName" placeholder="Enter First Name">
-          </div>
-        <div class="form-group text-left">
-            <label for="inputLastName">Last Name</label>
-            <input type="text" class="form-control" formControlName="lname" id="inputLastName" placeholder="Enter Last Name">
-        </div>
-        <div class="form-group text-left">
-          <label for="inputEmail">Email address</label>
-          <input type="email" class="form-control" formControlName="email" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter Email">
-          <small id="emailHelp" class="form-text text-muted">Ensure you enter the correct email</small>
-        </div>
-        <div class="form-group text-left">
-          <label for="inputPassword">Password</label>
-          <input type="password" class="form-control" formControlName="password" id="inputPassword" placeholder="Enter Password">
-        </div>
-        <div class="row d-flex mx-auto w-100 justify-content-around">
-          <div class="col w-50 ">
-            <button class="btn w-100 btn-primary" (click)="onSubmit()">Register</button>
-          </div>
-          <div class="col w-50">
-            <button class="btn w-100 btn-secondary" (click)="goToLogin()">Login</button>
-          </div>
-        </div>
-    </form>
-  </div>
-</div>
+
+<img src="../../../assets/images/rev-logo.png" width="30%" height="30%" alt="Revature">
+<form id="register-form" [formGroup]="registerForm">
+
+    <div class="form-group">
+        <label for="inputFirstName">First Name</label>
+        <input type="text" class="form-control" formControlName="fname" id="inputFirstName" placeholder="Enter First Name">
+      </div>
+
+
+    <div class="form-group">
+        <label for="inputLastName">Last Name</label>
+        <input type="text" class="form-control" formControlName="lname" id="inputLastName" placeholder="Enter Last Name">
+    </div>
+
+    <div class="form-group">
+      <label for="inputEmail">Email address</label>
+      <input type="email" class="form-control" formControlName="email" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter Email" email="true">
+      <small id="emailHelp" class="form-text text-muted">Ensure you enter the correct email</small>
+      <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)">
+        <div *ngIf="f.email.errors?.['required']">Email is required</div>
+        <div *ngIf="f.email.errors?.['pattern']">Please enter a valid email.</div>
+      </div>
+    </div>
+          
+
+    <div class="form-group">
+      <label for="inputPassword">Password</label>
+      <input type="password" class="form-control" formControlName="password" id="inputPassword" placeholder="Enter Password">
+      <div *ngIf="f.password.invalid && (f.password.dirty || f.password.touched)">
+          <div *ngIf="f.password.errors?.['required']">Password is required.</div>
+          <div *ngIf="f.password.errors?.['pattern']">Password should be 8-12 characters long, 
+              including at least 1 number, 1 lowercase and 1 uppercase letter, and 1 special character</div>
+    </div>
+    </div>
+
+
+    <div *ngIf="registerFail == true">There was an error processing your request</div>
+    <button class="btn btn-primary"  [disabled]="!registerForm.valid" (click)="onSubmit()">Register</button>
+</form>
