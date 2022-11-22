@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -16,11 +17,18 @@ export class RegisterComponent implements OnInit {
     email: new UntypedFormControl(''),
     password: new UntypedFormControl('')
   })
+
+  loggedInSubscription!:Subscription
   
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.loggedInSubscription = this.authService.isLoggedIn().subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        this.router.navigate(['home'])
+      }
+    })
   }
   
   onSubmit(): void {
@@ -29,6 +37,14 @@ export class RegisterComponent implements OnInit {
       (err) => console.log(err),
       () => this.router.navigate(['login'])
     );
+  }
+
+  goToLogin() {
+    this.router.navigate(['login'])
+  }
+
+  ngOnDestroy() {
+    this.loggedInSubscription.unsubscribe();
   }
 
 }

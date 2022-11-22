@@ -1,26 +1,20 @@
 /* Item sizing */
-.cardListItem {
+/* .cardListItem {
     flex: 0 0 307px;
     padding-bottom: 6%;
     max-width: 400px;
-    /* margin-left: 6%; */
   }
     
   
-    /* small size viewport */
   @media screen and (max-width: 640px) {
-    /* Item sizing */
     .cardListItem {
       flex: 0 0 307px;
       margin-left: 4%;
       padding-left: 3%;
     }
   }
-    /* medium size viewport */
   @media screen and (max-width: 959px) {
-    /* Item sizing */
     .cardListItem {
-      /* flex: 0 0 307px; */
       margin-left: 5%;
       margin-right: 5%;
     }
@@ -45,4 +39,4 @@
 .col-4
 {
   margin-bottom: 1%;
-}
+} */

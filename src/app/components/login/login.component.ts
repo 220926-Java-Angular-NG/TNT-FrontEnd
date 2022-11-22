@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
+import { Subscription } from 'rxjs';
+
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -17,11 +19,16 @@ export class LoginComponent implements OnInit {
   })
 
   featuredProducts:Product[] = [];
+
+  loggedInSubscription!:Subscription
   
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.loggedInSubscription = this.authService.isLoggedIn().subscribe(isLoggedIn => {
+      if (isLoggedIn) this.router.navigate(['home'])
+    })
     this.authService.getFeaturedProducts().subscribe(
       (products)=>this.featuredProducts=products
     )
@@ -29,7 +36,10 @@ export class LoginComponent implements OnInit {
   
   onSubmit(): void {
     this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(
-      () => {
+      (currUser) => {
+        // hide user
+        currUser.password = ''
+        this.authService.setUser(currUser)
         this.authService.loggedIn=true;
       },
       (err) => console.log(err),
@@ -39,6 +49,11 @@ export class LoginComponent implements OnInit {
 
   register(): void {
     this.router.navigate(['register']);
+  }
+
+  
+  ngOnDestroy() {
+    this.loggedInSubscription.unsubscribe();
   }
 
 }
