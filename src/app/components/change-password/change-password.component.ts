@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup,FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -21,7 +21,19 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /*
+
+
+
+
+
+  
+  */
   onChange():void{
+
+
+
+    /*
     this.auth.changePassword(this.changePasswordForm.get('email')?.value,
                              this.changePasswordForm.get('oldPassword')?.value,
                              this.changePasswordForm.get("newPassword")?.value)
@@ -29,6 +41,12 @@ export class ChangePasswordComponent implements OnInit {
                               () => console.log("Password changed"),
                               (err) => console.log(err),
                               () => this.router.navigate(['login']))
+
+
+
+    */
+
+
   }
 
 }
