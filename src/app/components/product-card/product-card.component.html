@@ -24,18 +24,10 @@
     <div class="input-group-prepend">
       <span class="input-group-text" id="inputGroup-sizing-sm">$</span>
     </div>
-    <input type="number" class="form-control" aria-label="Sizing example input" [value]="productInfo.price"
-      aria-describedby="inputGroup-sizing-sm" disabled>
-  </div> -->
-  <!-- 
-    TODO: Matt will include this on product information page
-    <div class="input-group input-group-sm mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="inputGroup-sizing-sm">Quantity in Stock</span>
-    </div>
-    <input type="number" class="form-control" aria-label="Sizing example input" [value]="productInfo.quantity"
-      aria-describedby="inputGroup-sizing-sm" disabled>
-  </div> -->
+
+    <input type="number" class="form-control" aria-label="Sizing example input" [value]="productInfo.price" aria-describedby="inputGroup-sizing-sm" disabled>
+  </div>
+    
   <div class="card-body m-0 px-1" *ngIf="isLoggedIn">
     <div class="row w-100 m-0" *ngIf="!isInCart">
       <div class="col-5">
@@ -59,7 +51,6 @@
       <button (click)="removeFromCart()" class="mx-auto w-75 btn btn-outline-danger">Remove from Cart</button>
 
     </div>
-
   </div>
 </div>
 <!-- 

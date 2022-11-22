@@ -101,7 +101,7 @@ export class ProductCardComponent implements OnInit{
 
   toProduct(id:number, allowed:boolean){
     if(allowed){
-      this.router.navigateByUrl("/products/"+id)
+      this.router.navigateByUrl("/products/"+id);
     }
   }
 }
