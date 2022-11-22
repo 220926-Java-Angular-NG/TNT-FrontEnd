@@ -18,3 +18,9 @@
 .no-stock{
     background-color:crimson;
 }
+
+button{
+    position: absolute;
+    justify-content: right;
+
+}
