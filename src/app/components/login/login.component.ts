@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
   
 
   register(): void {
-    this.respHandler.switchRespPresent();
+    if(this.respHandler.respPresent==true) this.respHandler.switchRespPresent();
     this.router.navigate(['register']);
   }
 
@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
   }
 
   deleteResp():void{
-    this.respHandler.responseMsg = [];
+    if(this.respHandler.respPresent==true) this.respHandler.responseMsg = [];
     this.respHandler.switchRespPresent();
   }
 
