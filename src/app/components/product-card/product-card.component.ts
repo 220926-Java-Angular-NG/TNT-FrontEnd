@@ -6,7 +6,6 @@ import { Product } from 'src/app/models/product';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
-import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-card',
@@ -14,8 +13,6 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent implements OnInit{
-
-  userId! : number ;
 
   // the product we are rendering
   @Input() productInfo!: Product;
@@ -43,7 +40,7 @@ export class ProductCardComponent implements OnInit{
 
   isLoggedIn = this.authService.loggedIn;
 
-  constructor(private productService: ProductService, private cartService:CartService, private authService:AuthService, private router: Router) { }
+  constructor(private cartService:CartService, private authService:AuthService, private router: Router) { }
 
   
   ngOnInit(): void {
@@ -128,35 +125,20 @@ export class ProductCardComponent implements OnInit{
 
     if (this.wishList) {
       this.wishList.push(product);
-      this.wishListCount++;
-
       
-      let wL = {
-        wishListCount: this.wishListCount,
-        wishes: this.wishList
-      }
-
-      this.productService.setWishList(wL);
+      this.authService.updateWishList(this.wishList);
     }
   }
-
-
-    
+ 
 
   removeFromWishList(product : Product) : void {
     if (this.wishList) {
       for (let wish of this.wishList){
         if (wish.id === product.id){
           this.wishList = this.wishList.filter(w => w !== product)
-          this.wishListCount = this.wishList.length;
+          this.authService.updateWishList(this.wishList);
         }
       }
-      
-      let wL = {
-        wishListCount: this.wishListCount,
-        wishes: this.wishList
-      }
-      this.productService.setWishList(wL);
     }
 
     
