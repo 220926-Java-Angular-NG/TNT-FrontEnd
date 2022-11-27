@@ -61,7 +61,7 @@
     </div>
     <div class="card-body">
       <button class="btn btn-outline-success" *ngIf="!isInWishList(productInfo)" (click)="addToWishList(productInfo)">Add to Wish List</button>
-      <button class="btn btn-outline-success" *ngIf="isInWishList(productInfo)" (click)="removeFromWishList(productInfo)">Remove from Wish List</button>
+      <button class="mx-auto w-75 btn btn-outline-danger" *ngIf="isInWishList(productInfo)" (click)="removeFromWishList(productInfo)">Remove from Wish List</button>
   </div>
 
   </div>
