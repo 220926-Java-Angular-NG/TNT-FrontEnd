@@ -81,8 +81,18 @@ export class AuthService {
 
   updateUser(user: User): Observable<any> {
     const payload = {id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email, password: user.password, wishList: user.wishList};
-    return this.http.put<User>(`${this.authUrl}/register`, payload, {headers: environment.headers});
+    return this.http.post<User>(`${this.authUrl}/wishlist`, payload, {headers: environment.headers});
 
+  }
+
+  updateWishList(wishList: Product[]) : void {
+    if (this.user) {
+      this.user.wishList = wishList;
+    
+      this.updateUser(this.user);
+    }
+      
+  
   }
 
 

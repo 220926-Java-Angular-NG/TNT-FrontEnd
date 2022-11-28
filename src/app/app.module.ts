@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
@@ -13,6 +14,8 @@ import { DisplayProductsComponent } from './components/display-products/display-
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { UiUxReactComponent } from './components/ui-ux-react/ui-ux-react.component';
 import { WishListComponent } from './components/wish-list/wish-list.component';
 
 @NgModule({
@@ -26,7 +29,10 @@ import { WishListComponent } from './components/wish-list/wish-list.component';
     CheckoutComponent,
     DisplayProductsComponent,
     ProductDetailsComponent,
-    WishListComponent
+    HomepageComponent,
+    UiUxReactComponent,
+    WishListComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
