@@ -50,8 +50,8 @@ export class AuthService {
   // to get the user that is currently logged in
   // will return a user with id = 0 if not logged in
   getUser():User {
-    this.loggedIn = true
-    this.setIsLoggedIn(this.loggedIn)
+    //this.loggedIn = true
+    //this.setIsLoggedIn(this.loggedIn)
     // if user is not logged in 
     // if (!this.loggedIn) return {id:0}
     // if user is already defined
@@ -67,7 +67,7 @@ export class AuthService {
     // we dont have access to user so return false user
     this.loggedIn = false
     this.setIsLoggedIn(this.loggedIn)
-    return {id:0}
+    return {id:0,wishList:[]}
   }
 
   fetchUser():User {
@@ -100,7 +100,7 @@ export class AuthService {
     localStorage.clear()
     this.loggedIn =false
     this.setIsLoggedIn(this.loggedIn)
-    this.user = {id:0}
+    this.user = {id:0,wishList:[]}
   }
 
 

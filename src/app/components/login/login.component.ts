@@ -35,11 +35,22 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedInSubscription = this.authService.isLoggedIn().subscribe(isLoggedIn => {
-      if (isLoggedIn) this.router.navigate(['home'])
-    })
+      console.log(`Logged in is ${isLoggedIn}`);
+      if (isLoggedIn){
+        this.router.navigate(['home']);
+      } 
+    });
+    console.log(this.loggedInSubscription);
+    console.log("******************");
+
     this.authService.getFeaturedProducts().subscribe(
-      (products)=>this.featuredProducts=products
-    )
+          (products)=>this.featuredProducts=products
+        );
+    /*
+
+    
+    */
+    
     
   }
   
