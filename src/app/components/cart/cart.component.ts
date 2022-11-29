@@ -33,6 +33,7 @@ export class CartComponent implements OnInit {
         this.userCartProducts = cart
         console.log(cart)
       })
+      // ---- start deprecated ---- //
     this.productService.getCart().subscribe(
       (cart) => {
         this.products = cart.products;
@@ -42,21 +43,56 @@ export class CartComponent implements OnInit {
         this.totalPrice = cart.totalPrice;
       }
     );
+    // ---- end deprecated ---- //
+  }
+
+  deleteFromCart(cartId:number) {
+    if (cartId !== 0) {
+      let cartItem:CartProduct = {
+        id:cartId,
+        quantity:0,
+        user: {id: this.authService.getUser().id},
+      }
+      this.cartService.removeFromCart(cartItem).subscribe(res => {
+        let index = this.userCartProducts.findIndex(item => item.id === cartId)
+        if (index != -1) this.userCartProducts.splice(index, 1)
+        this.cartService.updateCartCount(this.authService.getUser().id)
+      })
+    }
+  }
+
+  updateCartItemQuantity(cartId:number, quantity:number) {
+    if (cartId !== 0) {
+      let cartItem:CartProduct = {
+        id:cartId,
+        quantity:0,
+        user: {id: this.authService.getUser().id},
+      }
+      this.cartService.updateCartQuantity(cartItem, quantity).subscribe(res => {
+        console.log(res)
+        let index = this.userCartProducts.findIndex(item => item.id === res.id)
+        if (index != -1) this.userCartProducts.splice(index, 1, res)
+        this.cartService.updateCartCount(this.authService.getUser().id)
+      })
+    }
   }
 
   emptyCart(): void {
     let user:User = this.authService.getUser()
-    // console.log(user)
     this.cartService.clearUserCart(user).subscribe(res => {
-      console.log(res)
+      // console.log(res)
+      this.cartService.updateCartCount(user.id)
     })
+
+    // ---- start deprecated ---- //
     let cart = {
       cartCount: 0,
       products: [],
       totalPrice: 0.00
     };
     this.productService.setCart(cart);
-    this.cartService.updateCartCount(user.id)
+    // ---- end deprecated ---- //
+
     this.router.navigate(['/home']);
   }
 

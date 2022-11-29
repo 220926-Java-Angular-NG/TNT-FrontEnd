@@ -36,7 +36,7 @@ export class ProductCardComponent implements OnInit{
   }[] = [];
   subscription!: Subscription;
   totalPrice: number = 0;
-  featuredBanner = "../../assets/images/featured.png"
+  featuredBanner = "../../assets/images/Featured.png"
 
   isLoggedIn = this.authService.loggedIn;
 
@@ -75,7 +75,7 @@ export class ProductCardComponent implements OnInit{
   checkIfInCart() {
     this.cartService.getCart(this.authService.getUser().id).subscribe(_cartItems => {
         _cartItems.forEach(item => {
-          if (this.productInfo.id === item.product.id) {
+          if (item.product && this.productInfo.id === item.product.id) {
             this.isInCart = true
             this.cartItemId = item.id
           }

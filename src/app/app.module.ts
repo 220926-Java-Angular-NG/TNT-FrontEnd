@@ -17,6 +17,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { UiUxReactComponent } from './components/ui-ux-react/ui-ux-react.component';
 import { WishListComponent } from './components/wish-list/wish-list.component';
+import { CartProductComponent } from './components/cart-product/cart-product.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { WishListComponent } from './components/wish-list/wish-list.component';
     HomepageComponent,
     UiUxReactComponent,
     WishListComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    CartProductComponent
   ],
   imports: [
     BrowserModule,
