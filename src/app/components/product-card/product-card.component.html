@@ -7,11 +7,29 @@
   </div>
 
   <hr>
-  <div class="card-title px-3">
+  <div class="card-title px-3 d-flex justify-content-between">
     
-    <h5 class="card-title">{{productInfo.name}}</h5>
-      <button data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Wish List" class="p-0 card-img-overlay ml-auto btn border-0 btn-success btn-outline-success" style="font-size: 35px;width: 45px;height: 45px;" *ngIf="!isInWishList(productInfo)" (click)="addToWishList(productInfo)">&#9825;</button>
-      <button data-bs-toggle="tooltip" data-bs-placement="top" title="Remove From Wish List" class="p-0 card-img-overlay ml-auto btn border-0 btn-danger btn-outline-danger" style="font-size: 35px;width: 45px;height: 45px;" *ngIf="isInWishList(productInfo)" (click)="removeFromWishList(productInfo)">&#9825;</button>
+    <h5 class="card-title w-75 mt-2 pt-1">{{productInfo.name}}</h5>
+    <div class="w-25">
+      <button data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Wish List" 
+        class="p-0 pl-2 ml-auto btn border-0 btn-outline-success btn-success text-center" 
+        style="font-size: 35px;width: 45px;height: 45px;" 
+        *ngIf="!isInWishList(productInfo)" 
+        (click)="addToWishList(productInfo)"
+      >&#9825;
+      <span class="" style="position: relative;font-size: 20px;top: -15px;left: -13px;">+</span>
+    </button>
+
+      <button data-bs-toggle="tooltip" data-bs-placement="top" title="Remove From Wish List" 
+        class="p-0  pl-2 ml-auto btn border-0 btn-danger btn-outline-danger" 
+        style="font-size: 35px;width: 45px;height: 45px;" 
+        *ngIf="isInWishList(productInfo)" 
+        (click)="removeFromWishList(productInfo)"
+      >&hearts;
+      <span class="" style="position: relative;font-size: 20px;top: -16px;left: -12px;">-</span>
+      </button>
+
+    </div>
   </div>
   <div class="row card-text w-100 m-0 px-3">
     <p class="h6 text-left  pt-0">
