@@ -36,7 +36,7 @@ export class ProductCardComponent implements OnInit{
   }[] = [];
   subscription!: Subscription;
   totalPrice: number = 0;
-  featuredBanner = "../../assets/images/Featured.png"
+  featuredBanner = "../../assets/images/featured.png"
 
   isLoggedIn = this.authService.loggedIn;
 

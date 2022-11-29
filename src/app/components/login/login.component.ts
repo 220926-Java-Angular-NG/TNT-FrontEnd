@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
         this.authService.loggedIn=true;
         if(this.respHandler.respPresent==false) this.respHandler.switchRespPresent();
         this.responseType = this.getResponseType('success');
-        this.respHandler.handleSuccess("LOGIN SUCCESSFUL","You have successfully loged in.");
+        this.respHandler.handleSuccess("LOGIN SUCCESSFUL","You have successfully logged in.");
       },
       (err) => {
 
