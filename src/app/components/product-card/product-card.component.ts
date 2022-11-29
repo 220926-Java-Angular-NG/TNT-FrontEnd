@@ -138,7 +138,7 @@ export class ProductCardComponent implements OnInit{
           this.wishList = this.wishList.filter(w => w !== product);
           let user: User = this.authService.getUser();
           user.wishList = this.wishList;
-          this.authService.setUser(user);
+          this.authService.updateUser(user);
         }
       }
     }
