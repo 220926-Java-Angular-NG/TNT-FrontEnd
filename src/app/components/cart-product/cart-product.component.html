@@ -1,0 +1,39 @@
+<div class="row py-3 w-100m-0 p-0" *ngIf="cartProduct.product">
+  <!-- image -->
+  <div class="col-3 col-sm-3 col-md-2 text-center bg-white rounded" style="height: 4rem; width: auto;">
+    <img class="mx-auto  img-fluid border-0 h-100"  [src]="cartProduct.product.image" alt="Card image cap">
+  </div>
+  <!-- name -->
+  <!-- quantity select -->
+  <div class="col-8 col-sm-8 col-md-8 my-auto">
+    <div class="row">
+      <div class="col-8 text-center">
+        <p class="h5 pt-3">
+          {{cartProduct.product.name}}
+        </p>
+      </div>
+      <div class="col-4 my-auto ">
+        <div class="col p-0 m-0 my-auto d-flex justify-content-center">
+          <button (click)="updateQuantity(-1)" class="p-0 px-1 pt-1 m-0 btn btn-outline-danger">
+            <span aria-hidden="true">
+              <i class="material-icons">-</i>
+            </span>
+          </button>
+          <span class="title fw-bolder px-3 my-auto">{{cartProduct.quantity}}</span>
+          <button (click)="updateQuantity(1)" class="p-0 px-1 pt-1 m-0 btn btn-outline-primary">
+            <span aria-hidden="true">
+              <i class="material-icons">+</i>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- remove from cart -->
+  <div class="removecart col-1 ml-auto rounded text-white text-center col-sm-1 col-md-1 w-100 h-100 my-auto bg-danger" (click)="deleteCartItem()">
+    <span aria-hidden="true" class="w-100 h-100">
+      <i class="fa fa-trash-o"></i>
+    </span>
+  </div>
+</div>

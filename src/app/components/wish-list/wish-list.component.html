@@ -1,0 +1,19 @@
+<div class="container">
+    <table class="table table-striped" id="cart-table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody id="cart-table-body">
+            <tr *ngFor="let wish of wishList;">
+                <td>{{wish.name}}</td>
+                <td>{{wish.description}}</td>
+                <button class="btn btn-warning" (click)="removeFromWishList(wish)">Remove from Wish List</button>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-danger" [routerLink]="['/home']">Back</button>
+    <button class="btn btn-warning" (click)="emptyWishList()">Empty Wish List</button>
+  </div>

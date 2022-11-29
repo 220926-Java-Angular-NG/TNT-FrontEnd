@@ -1,17 +1,17 @@
-.card {
+/* .card {
     size: auto;
     min-width: 275px;
     max-width: 200px;
     height: fit-content;
     transition: .2s ease-out;
     justify-content: center;
-  }
-.parent {
+  } */
+/* .parent {
   position: relative;
   top: 0;
-}
+} */
 
-.card-img-top {
+/* .card-img-top {
   position: relative;
   justify-content: center;
   top:0;
@@ -20,12 +20,12 @@
   width: auto;
   max-height: 200px;
   max-width: 307px;
-}
-.featured {
+} */
+/* .featured {
   position: absolute;
   top: 15px;
   left: 15px;
-}  
+}   */
   div {
     position: relative;
     transition: .2s ease-out;
@@ -34,5 +34,11 @@
   
   .card:hover{
     box-shadow: 0 5px 10px rgba(0,0,0,.2);
-    transform: translate3d(0,-10px,0);
+    transform: translate3d(0,-5px,0);
   }
+
+  /* .badgeHover {
+    position: relative;
+    left: -7px;
+    top: -15rem;
+  } */

@@ -36,7 +36,7 @@ export class ProductService {
     return this._cart.next(latestValue);
   }
 
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) { }
 
   public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(environment.baseUrl+this.productUrl, {headers: environment.headers, withCredentials: environment.withCredentials});
@@ -50,6 +50,8 @@ export class ProductService {
     const payload = JSON.stringify(products);
     return this.http.patch<any>(environment.baseUrl+this.productUrl, payload, {headers: environment.headers, withCredentials: environment.withCredentials})
   }
+
+  
 
   
 }

@@ -1,13 +1,17 @@
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-light bg-light"  *ngIf="isLoggedIn">
     <h4>
         <img src="../../../assets/images/favicon.png" width="8%" height="8%" alt="Revature">
         Revature Swag Shop
     </h4>
     <form class="form-inline">
+        <button class="btn btn-light" [routerLink]="['/wishlist']">
+            Wish List
+        </button>
         <button class="btn btn-light" [routerLink]="['/cart']">
             Cart
             <span class="badge badge-info">{{cartCount}}</span>
         </button>
+        <button class="btn btn-outline-danger my-2 my-sm-0" [routerLink]="['/change-password']">Change Password</button>
         <button class="btn btn-outline-danger my-2 my-sm-0" (click)="logout();">Logout</button>
     </form>
 </nav>
