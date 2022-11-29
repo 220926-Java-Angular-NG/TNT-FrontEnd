@@ -72,7 +72,7 @@ export class AuthService {
     // we dont have access to user so return false user
     this.loggedIn = false
     this.setIsLoggedIn(this.loggedIn)
-    return {id:0}
+    return {id:0,wishList:[]}
   }
 
   fetchUser():User {
@@ -95,11 +95,16 @@ export class AuthService {
     localStorage.clear()
     this.loggedIn =false
     this.setIsLoggedIn(this.loggedIn)
-    this.user = {id:0}
+    this.user = {id:0,wishList:[]}
   }
 
 
   public getFeaturedProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.authUrl}/featured`, {headers: environment.headers});
+  }
+
+  public changePassword(email: string, oldPassword: string,newPassword:string): Observable<User> {
+    const payload = {email:email, oldPassword:oldPassword,newPassword:newPassword};
+    return this.http.post<User>(`${this.authUrl}/change-password`, payload, {headers: environment.headers, withCredentials: environment.withCredentials});
   }
 }

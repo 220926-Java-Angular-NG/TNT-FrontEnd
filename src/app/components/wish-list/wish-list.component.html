@@ -2,14 +2,12 @@
     <table class="table table-striped" id="cart-table">
         <thead>
           <tr>
-            <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Description</th>
           </tr>
         </thead>
         <tbody id="cart-table-body">
             <tr *ngFor="let wish of wishList;">
-                <td>{{wish.id}}</td>
                 <td>{{wish.name}}</td>
                 <td>{{wish.description}}</td>
                 <button class="btn btn-warning" (click)="removeFromWishList(wish)">Remove from Wish List</button>

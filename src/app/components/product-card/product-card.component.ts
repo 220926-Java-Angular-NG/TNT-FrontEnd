@@ -48,7 +48,16 @@ export class ProductCardComponent implements OnInit{
 
 
     this.wishList = this.authService.getUser().wishList;
-   (this.wishList) ? this.wishListCount = this.wishList?.length : this.wishListCount = 0;
+
+    if(this.wishList){
+      this.wishListCount = this.wishList?.length;
+    }else{
+      this.wishList = [];
+      this.wishListCount = 0;
+    }
+
+
+   //(this.wishList) ? this.wishListCount = this.wishList?.length : this.wishListCount = 0;
     
       
   }
