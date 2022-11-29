@@ -1,5 +1,7 @@
 <app-navbar></app-navbar>
-<div class="container mx-auto d-flex justify-content-between p-0 row mt-5" *ngIf="userCartProducts.length > 0; else emptycart">
+<div class="container mx-auto d-flex justify-content-between p-0 row mt-5"
+    *ngIf="userCartProducts.length > 0; else emptycart"
+  >
 
   <div class="col-12 col-md-8  w-100 bg-light rounded">
 
@@ -13,45 +15,50 @@
     </div>
   </div>
 
-  <div class="col-12 py-4 col-md-3 w-100 bg-light rounded">
-    <div class="row px-4">
-      <button (click)="goToCheckout()" class="mt-3 py-2 w-100 btn btn-primary">CHECKOUT</button>
-    </div>
-
-    <div class="row p-0 mt-4" *ngIf="userCartProducts">
-      <div class="col-6 p-0 pl-3">
-        Items ({{userCartProducts.length}}):
+  <div class="col-12 p-0 m-0 col-md-3 w-100">
+    <div class="px-3 py-3 mt-md-0 mt-sm-5 w-100 bg-light rounded">
+      <div class="row px-4">
+        <button [routerLink]="['/checkout']" class="mt-3 py-2 w-100 btn btn-primary">CHECKOUT</button>
       </div>
-      <div class="col-6 text-right" style="text-align: right;">
-        $ {{totalPrice.toFixed(2)}}
+  
+      <div class="row p-0 mt-4" *ngIf="userCartProducts">
+        <div class="col-6 p-0 pl-3">
+          Items ({{userCartProducts.length}}):
+        </div>
+        <div class="col-6 text-right pl-0" style="text-align: right;">
+          $ {{totalPrice.toFixed(2)}}
+        </div>
       </div>
-    </div>
-    <div class="row  p-0  mt-1" *ngIf="userCartProducts">
-      <div class="col-6 p-0 pl-3">
-        Tax @ 0% </div>
-      <div class="col-6 " style="text-align: right;">
-        <span class="">
-          $ 0.00
-        </span>
-      </div>
-    </div>
-    <hr>
       <div class="row  p-0  mt-1" *ngIf="userCartProducts">
         <div class="col-6 p-0 pl-3">
-          Total ({{userCartProducts.length}}):
-        </div>
-        <div class="col-6 text-right" style="text-align: right;">
-          <span>
-            $ {{totalPrice.toFixed(2)}}
+          Tax @ 0% </div>
+        <div class="col-6  pl-0" style="text-align: right;">
+          <span class="">
+            $ 0.00
           </span>
         </div>
       </div>
+      <hr>
+        <div class="row  p-0  mt-1" *ngIf="userCartProducts">
+          <div class="col-6 p-0 pl-3">
+            Total ({{userCartProducts.length}}):
+          </div>
+          <div class="col-6 text-right pl-0" style="text-align: right;">
+            <span>
+              $ {{totalPrice.toFixed(2)}}
+            </span>
+          </div>
+        </div>
+    </div>
+    <div class="row w-100 mt-5 mx-0 p-0">
+      <button class="w-100 btn btn-warning" (click)="emptyCart()">Clear Cart</button>
+      <!-- <button class="btn btn-danger" [routerLink]="['/home']">Back</button> -->
+    </div>
   </div>
-  <div class="row mt-5 d-flex justify-content-center">
-    <button class="btn btn-danger" [routerLink]="['/home']">Back</button>
-    <button class="btn btn-warning" (click)="emptyCart()">Empty Cart</button>
-    <button class="btn btn-primary" [routerLink]="['/checkout']">Proceed to Checkout (${{totalPrice}})</button>
-  </div>
+
+
+
+
 </div>
 <ng-template #emptycart>
   <div class="container rounded h-100 bg-light my-5 text-center">
