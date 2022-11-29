@@ -146,13 +146,13 @@ export class ProductCardComponent implements OnInit{
     if (this.wishList) {
       for (let wish of this.wishList){
         if (wish.id === product.id){
-          this.wishList = this.wishList.filter(w => w !== product)
-          this.authService.updateWishList(this.wishList);
+          this.wishList = this.wishList.filter(w => w !== product);
+          let user: User = this.authService.getUser();
+          user.wishList = this.wishList;
+          this.authService.setUser(user);
         }
       }
     }
-
-    
   }
 
   ngOnDestroy() {

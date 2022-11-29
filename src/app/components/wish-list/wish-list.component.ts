@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Product } from 'src/app/models/product';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-wish-list',
@@ -7,9 +11,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WishListComponent implements OnInit {
 
-  constructor() { }
+  wishList?: Product[] = [];
+
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    if ((this.authService.isLoggedIn()).subscribe()) {
+      this.wishList =  this.authService.getUser().wishList;
+    }
+  }
+
+  removeFromWishList(product : Product) : void {
+    if (this.wishList) {
+      for (let wish of this.wishList){
+        if (wish.id === product.id){
+          this.wishList = this.wishList.filter(w => w !== product);
+          let user: User = this.authService.getUser();
+          user.wishList = this.wishList;
+          this.authService.setUser(user);
+        }
+      }
+    }
+  }
+
+  emptyWishList(){
+
   }
 
 }

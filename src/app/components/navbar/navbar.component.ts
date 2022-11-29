@@ -12,7 +12,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class NavbarComponent implements OnInit{
 
-  wishListCount?: number;
+  wishListCount!: number;
   
 
   cartCount!: number;
@@ -34,10 +34,8 @@ export class NavbarComponent implements OnInit{
     this.cartService.updateCartCount(this.authService.getUser().id)
 
     // get the wish list count from the auth service
-   if ((this.authService.getUser().wishList)&&(this.authService.getUser().wishList !== undefined)) {
-    this.wishListCount = this.authService.getUser().wishList?.length;
-   }else{
-    this.wishListCount = 0;
+   if (this.authService.getUser().wishList) {
+    this.wishListCount = this.authService.getUser().wishList!.length;
    }
 
     // get the new loggedIn status everytime it changes
