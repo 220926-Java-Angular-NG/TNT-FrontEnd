@@ -1,8 +1,9 @@
-<div class="container mx-auto d-flex justify-content-between p-0 row mt-5">
+<app-navbar></app-navbar>
+<div class="container mx-auto d-flex justify-content-between p-0 row mt-5" *ngIf="userCartProducts.length > 0; else emptycart">
 
-  <div class="col-12 col-md-8  w-100 bg-warning rounded">
+  <div class="col-12 col-md-8  w-100 bg-light rounded">
 
-    <div class="bg-li  px-3" *ngFor="let product of userCartProducts; let i = index">
+    <div class="bg-li  px-3" *ngFor="let product of userCartProducts; let i = index" >
       <app-cart-product 
         [cartProduct]="product"
         (deleteItemEvent)="deleteFromCart($event)"
@@ -12,15 +13,39 @@
     </div>
   </div>
 
-  <div class="col-12 col-md-3 pt-4 w-100 bg-info rounded">
-    <div class="row w-100 m-0 p-0 title">
-      <p class="h4 p-0 m-0 text-center mx-auto">
-        Total
-      </p>
+  <div class="col-12 py-4 col-md-3 w-100 bg-light rounded">
+    <div class="row px-4">
+      <button (click)="goToCheckout()" class="mt-3 py-2 w-100 btn btn-primary">CHECKOUT</button>
     </div>
-    <div class="row">
 
+    <div class="row p-0 mt-4" *ngIf="userCartProducts">
+      <div class="col-6 p-0 pl-3">
+        Items ({{userCartProducts.length}}):
+      </div>
+      <div class="col-6 text-right" style="text-align: right;">
+        $ {{totalPrice.toFixed(2)}}
+      </div>
     </div>
+    <div class="row  p-0  mt-1" *ngIf="userCartProducts">
+      <div class="col-6 p-0 pl-3">
+        Tax @ 0% </div>
+      <div class="col-6 " style="text-align: right;">
+        <span class="">
+          $ 0.00
+        </span>
+      </div>
+    </div>
+    <hr>
+      <div class="row  p-0  mt-1" *ngIf="userCartProducts">
+        <div class="col-6 p-0 pl-3">
+          Total ({{userCartProducts.length}}):
+        </div>
+        <div class="col-6 text-right" style="text-align: right;">
+          <span>
+            $ {{totalPrice.toFixed(2)}}
+          </span>
+        </div>
+      </div>
   </div>
   <div class="row mt-5 d-flex justify-content-center">
     <button class="btn btn-danger" [routerLink]="['/home']">Back</button>
@@ -28,3 +53,13 @@
     <button class="btn btn-primary" [routerLink]="['/checkout']">Proceed to Checkout (${{totalPrice}})</button>
   </div>
 </div>
+<ng-template #emptycart>
+  <div class="container rounded h-100 bg-light my-5 text-center">
+    <p class="h4 mx-auto my-auto">
+      Nothing In Your Cart!
+    </p>
+    <button [routerLink]="['/home']" class="mt-5 px-5 btn btn-info">
+      Go Back Home
+    </button>
+  </div>
+</ng-template>
