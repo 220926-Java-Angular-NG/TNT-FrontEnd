@@ -36,7 +36,7 @@ export class ProductCardComponent implements OnInit{
   }[] = [];
   subscription!: Subscription;
   totalPrice: number = 0;
-  featuredBanner = "../../assets/images/Featured.png"
+  featuredBanner = "../../assets/images/featured.png"
 
   isLoggedIn = this.authService.loggedIn;
 
@@ -149,7 +149,7 @@ export class ProductCardComponent implements OnInit{
           this.wishList = this.wishList.filter(w => w !== product);
           let user: User = this.authService.getUser();
           user.wishList = this.wishList;
-          this.authService.setUser(user);
+          this.authService.updateUser(user);
         }
       }
     }
