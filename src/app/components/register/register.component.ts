@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -21,11 +22,18 @@ export class RegisterComponent implements OnInit {
       // ,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$')
     ])
   })
+
+  loggedInSubscription!:Subscription
   
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.loggedInSubscription = this.authService.isLoggedIn().subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        this.router.navigate(['home'])
+      }
+    })
   }
 
   get f(){
@@ -46,6 +54,14 @@ export class RegisterComponent implements OnInit {
     }else{
       return;
     }
+  }
+
+  goToLogin() {
+    this.router.navigate(['login'])
+  }
+
+  ngOnDestroy() {
+    this.loggedInSubscription.unsubscribe();
   }
 
 }

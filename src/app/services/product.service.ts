@@ -50,4 +50,6 @@ export class ProductService {
     const payload = JSON.stringify(products);
     return this.http.patch<any>(environment.baseUrl+this.productUrl, payload, {headers: environment.headers, withCredentials: environment.withCredentials})
   }
+
+  
 }
