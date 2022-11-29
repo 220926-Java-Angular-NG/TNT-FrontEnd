@@ -121,24 +121,33 @@ export class ProductCardComponent implements OnInit{
 
   }
 
-  addToWishList(product:Product){
+  addToWishList(product : Product) : void {
 
     if (this.wishList) {
-      this.wishList.push(product);
-      
-      this.authService.updateWishList(this.wishList);
+    this.wishList.push(product);
+    this.updateWishList(this.wishList);
     }
   }
- 
+
+  updateWishList(wishList: Product[]) : void {
+    let user1: User = this.authService.getUser();
+      user1.wishList = wishList;
+    
+      this.authService.updateUser(user1).subscribe((user) => user1 = user);
+      this.authService.setUser(user1);
+    }
+
+    
 
   removeFromWishList(product : Product) : void {
+    console.log(product);
     if (this.wishList) {
       for (let wish of this.wishList){
         if (wish.id === product.id){
           this.wishList = this.wishList.filter(w => w !== product);
-          let user: User = this.authService.getUser();
-          user.wishList = this.wishList;
-          this.authService.setUser(user);
+
+          console.log(this.wishList);
+          this.updateWishList(this.wishList);
         }
       }
     }

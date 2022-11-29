@@ -90,16 +90,6 @@ export class AuthService {
 
   }
 
-  updateWishList(wishList: Product[]) : void {
-    if (this.user) {
-      this.user.wishList = wishList;
-    
-      this.updateUser(this.user);
-    }
-      
-  
-  }
-
 
   handleLogout():void {
     localStorage.clear()
