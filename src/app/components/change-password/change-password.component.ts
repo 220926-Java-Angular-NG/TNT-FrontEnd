@@ -33,18 +33,22 @@ export class ChangePasswordComponent implements OnInit {
 
 
 
-    /*
+    
     this.auth.changePassword(this.changePasswordForm.get('email')?.value,
                              this.changePasswordForm.get('oldPassword')?.value,
                              this.changePasswordForm.get("newPassword")?.value)
                              .subscribe(
                               () => console.log("Password changed"),
                               (err) => console.log(err),
-                              () => this.router.navigate(['login']))
+                              () => {
+                                this.auth.logout()
+                                this.auth.handleLogout()
+                                this.router.navigate(['login']);
+
+                              })
 
 
-
-    */
+    
 
 
   }
