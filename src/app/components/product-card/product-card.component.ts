@@ -36,7 +36,7 @@ export class ProductCardComponent implements OnInit{
   }[] = [];
   subscription!: Subscription;
   totalPrice: number = 0;
-  featuredBanner = "../../assets/images/Featured.png"
+  featuredBanner = "../../assets/images/featured.png"
 
   isLoggedIn = this.authService.loggedIn;
 
@@ -122,7 +122,7 @@ export class ProductCardComponent implements OnInit{
   }
 
   addToWishList(product : Product) : void {
-
+    console.log(this.wishList)
     if (this.wishList) {
     this.wishList.push(product);
     this.updateWishList(this.wishList);
@@ -142,14 +142,23 @@ export class ProductCardComponent implements OnInit{
   removeFromWishList(product : Product) : void {
     console.log(product);
     if (this.wishList) {
-      for (let wish of this.wishList){
-        if (wish.id === product.id){
-          this.wishList = this.wishList.filter(w => w !== product);
+      this.wishList = this.wishList.filter(item => item.id !== product.id)
+        this.updateWishList(this.wishList);
+      // for (let wish of this.wishList){
 
-          console.log(this.wishList);
-          this.updateWishList(this.wishList);
-        }
-      }
+        // let index = this.wishList.findIndex(item => {
+        //   return item.id === product.id
+        // })
+
+        // if (index)
+        
+        // if (wish.id === product.id){
+        //   this.wishList = this.wishList.filter(w => w !== product);
+
+        //   console.log(this.wishList);
+        //   this.updateWishList(this.wishList);
+        // }
+      // }
     }
   }
 
