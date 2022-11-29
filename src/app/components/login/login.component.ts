@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
         setTimeout(() => {
           if(this.respHandler.respPresent==true) this.respHandler.switchRespPresent();
           this.router.navigate(['home'])
-        },3000)
+        },1000)
         
         
       }
