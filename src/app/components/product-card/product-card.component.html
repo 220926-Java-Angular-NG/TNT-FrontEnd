@@ -1,5 +1,5 @@
 <div class="card my-2 w-100">
-  <div class="w-100 text-center mx-auto" style="height: 15rem;"   (click)="toProduct(productInfo.id, isLoggedIn)">
+  <div class="w-100 text-center mx-auto" style="height: 15rem; cursor: pointer;"   (click)="toProduct(productInfo.id, isLoggedIn)">
     <!-- <img class=""  src="{{set.pack_image}}" alt="Card image cap"> -->
     <img class="card-img-top" style="height: 15rem;" [src]="productInfo.image" alt="Card image cap">
       <img class="card-img-overlay p-3" *ngIf="productInfo.featured" [src]="featuredBanner">
@@ -10,8 +10,8 @@
   <div class="card-title px-3">
     
     <h5 class="card-title">{{productInfo.name}}</h5>
-      <button class="p-0 card-img-overlay ml-auto btn border-0 btn-outline-success" style="font-size: 35px;width: 45px;height: 45px;" *ngIf="!isInWishList(productInfo)" (click)="addToWishList(productInfo)">&#9825;</button>
-      <button class="p-0 card-img-overlay ml-auto btn border-0 btn-outline-danger" style="font-size: 35px;width: 45px;height: 45px;" *ngIf="isInWishList(productInfo)" (click)="removeFromWishList(productInfo)">&#9825;</button>
+      <button data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Wish List" class="p-0 card-img-overlay ml-auto btn border-0 btn-success btn-outline-success" style="font-size: 35px;width: 45px;height: 45px;" *ngIf="!isInWishList(productInfo)" (click)="addToWishList(productInfo)">&#9825;</button>
+      <button data-bs-toggle="tooltip" data-bs-placement="top" title="Remove From Wish List" class="p-0 card-img-overlay ml-auto btn border-0 btn-danger btn-outline-danger" style="font-size: 35px;width: 45px;height: 45px;" *ngIf="isInWishList(productInfo)" (click)="removeFromWishList(productInfo)">&#9825;</button>
   </div>
   <div class="row card-text w-100 m-0 px-3">
     <p class="h6 text-left  pt-0">
