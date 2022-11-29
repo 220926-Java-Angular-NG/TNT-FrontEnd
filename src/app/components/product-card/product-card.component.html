@@ -16,8 +16,8 @@
         style="font-size: 35px;width: 45px;height: 45px;" 
         *ngIf="!isInWishList(productInfo)" 
         (click)="addToWishList(productInfo)"
-      >&#9825;
-      <span class="" style="position: relative;font-size: 20px;top: -15px;left: -13px;">+</span>
+      ><i class="fa fa-regular fa-paw"></i>
+      <span class="" style="position: relative;font-size: 12px;top: -19px;left: -7px;">+</span>
     </button>
 
       <button data-bs-toggle="tooltip" data-bs-placement="top" title="Remove From Wish List" 
@@ -25,8 +25,8 @@
         style="font-size: 35px;width: 45px;height: 45px;" 
         *ngIf="isInWishList(productInfo)" 
         (click)="removeFromWishList(productInfo)"
-      >&hearts;
-      <span class="" style="position: relative;font-size: 20px;top: -16px;left: -12px;">-</span>
+      ><i class="fa fa-solid fa-paw"></i>
+      <span class="" style="position: relative;font-size: 12px;top: -18px;left: -6px;">-</span>
       </button>
 
     </div>
