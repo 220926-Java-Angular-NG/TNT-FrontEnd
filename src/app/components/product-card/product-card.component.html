@@ -1,14 +1,17 @@
-<div class="card my-2 w-100" >
-  <div class="w-100 text-center mx-auto" style="height: 15rem;">
+<div class="card my-2 w-100">
+  <div class="w-100 text-center mx-auto" style="height: 15rem;"   (click)="toProduct(productInfo.id, isLoggedIn)">
     <!-- <img class=""  src="{{set.pack_image}}" alt="Card image cap"> -->
     <img class="card-img-top" style="height: 15rem;" [src]="productInfo.image" alt="Card image cap">
-    <img class="card-img-overlay p-3" *ngIf="productInfo.featured" [src]="featuredBanner">
+      <img class="card-img-overlay p-3" *ngIf="productInfo.featured" [src]="featuredBanner">
+      
   </div>
 
   <hr>
   <div class="card-title px-3">
     
     <h5 class="card-title">{{productInfo.name}}</h5>
+      <button class="p-0 card-img-overlay ml-auto btn border-0 btn-outline-success" style="font-size: 35px;width: 45px;height: 45px;" *ngIf="!isInWishList(productInfo)" (click)="addToWishList(productInfo)">&#9825;</button>
+      <button class="p-0 card-img-overlay ml-auto btn border-0 btn-outline-danger" style="font-size: 35px;width: 45px;height: 45px;" *ngIf="isInWishList(productInfo)" (click)="removeFromWishList(productInfo)">&#9825;</button>
   </div>
   <div class="row card-text w-100 m-0 px-3">
     <p class="h6 text-left  pt-0">
@@ -24,7 +27,7 @@
     <input type="number" class="form-control" aria-label="Sizing example input" [value]="productInfo.price" aria-describedby="inputGroup-sizing-sm" disabled>
   </div> -->
     
-  <div class="card-body m-0 px-1" *ngIf="isLoggedIn">
+  <div class="card-body row w-100 m-0 px-1" *ngIf="isLoggedIn">
     <div class="row w-100 m-0" *ngIf="!isInCart">
       <div class="col-5">
         <button (click)="updateQuantity(-1)" class="btn btn-outline-dark p-1 text-center  my-auto"
@@ -36,7 +39,7 @@
           style="min-width: 30px; height: 30px;">
           +
         </button>
-       </div> 
+      </div>
       <div class="col-7">
         <button class="btn btn-outline-success  my-auto" (click)="addToCart(productInfo)">Add to Cart</button>
       </div>
@@ -47,10 +50,7 @@
       <button (click)="removeFromCart()" class="mx-auto w-75 btn btn-outline-danger">Remove from Cart</button>
 
     </div>
-    <div class="card-body">
-      <button class="btn btn-outline-success" *ngIf="!isInWishList(productInfo)" (click)="addToWishList(productInfo)">Add to Wish List</button>
-      <button class="mx-auto w-75 btn btn-outline-danger" *ngIf="isInWishList(productInfo)" (click)="removeFromWishList(productInfo)">Remove from Wish List</button>
-  </div>
+
 
   </div>
 </div> 

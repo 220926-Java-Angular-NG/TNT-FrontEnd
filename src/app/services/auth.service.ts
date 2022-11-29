@@ -55,11 +55,16 @@ export class AuthService {
     // if user is not logged in 
     // if (!this.loggedIn) return {id:0}
     // if user is already defined
-    if (this.user && this.user.id !== 0)
+    if (this.user && this.user.id !== 0) {
+      this.loggedIn = true
+      this.setIsLoggedIn(this.loggedIn)
       return this.user
+    }
     else { // user is not defined, so fetch it
       let tmp:User = this.fetchUser()
       if (tmp.id !== 0) {
+        this.loggedIn = true
+        this.setIsLoggedIn(this.loggedIn)
         this.user = tmp
         return this.user
       }

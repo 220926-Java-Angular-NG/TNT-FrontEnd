@@ -84,7 +84,7 @@ export class ProductCardComponent implements OnInit{
   checkIfInCart() {
     this.cartService.getCart(this.authService.getUser().id).subscribe(_cartItems => {
         _cartItems.forEach(item => {
-          if (this.productInfo.id === item.product.id) {
+          if (item.product && this.productInfo.id === item.product.id) {
             this.isInCart = true
             this.cartItemId = item.id
           }
@@ -131,8 +131,6 @@ export class ProductCardComponent implements OnInit{
   }
 
   addToWishList(product : Product) : void {
-
-    console.log('IT WORKS!')
     console.log(this.wishList)
     if (this.wishList) {
     this.wishList.push(product);
@@ -153,14 +151,23 @@ export class ProductCardComponent implements OnInit{
   removeFromWishList(product : Product) : void {
     console.log(product);
     if (this.wishList) {
-      for (let wish of this.wishList){
-        if (wish.id === product.id){
-          this.wishList = this.wishList.filter(w => w !== product);
+      this.wishList = this.wishList.filter(item => item.id !== product.id)
+        this.updateWishList(this.wishList);
+      // for (let wish of this.wishList){
 
-          console.log(this.wishList);
-          this.updateWishList(this.wishList);
-        }
-      }
+        // let index = this.wishList.findIndex(item => {
+        //   return item.id === product.id
+        // })
+
+        // if (index)
+        
+        // if (wish.id === product.id){
+        //   this.wishList = this.wishList.filter(w => w !== product);
+
+        //   console.log(this.wishList);
+        //   this.updateWishList(this.wishList);
+        // }
+      // }
     }
   }
 

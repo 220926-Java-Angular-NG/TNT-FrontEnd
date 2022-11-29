@@ -24,7 +24,9 @@
     </div>
 </div>
 <div *ngIf="!product">
-    <p>No product found.</p>
+    <div class="spinner-grow" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
 </div>
 
 
