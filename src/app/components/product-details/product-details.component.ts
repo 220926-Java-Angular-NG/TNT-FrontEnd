@@ -17,7 +17,7 @@ export class ProductDetailsComponent implements OnInit {
   allProducts:Product[]=[];
   lowThreshold:number = 5
   isLoggedIn?:boolean;
-
+  isLoading:boolean = true;
   cartCount!: number;
   products: {
     product: Product,
@@ -25,6 +25,7 @@ export class ProductDetailsComponent implements OnInit {
   }[] = [];
   subscription!: Subscription;
   totalPrice: number = 0;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -95,5 +96,13 @@ export class ProductDetailsComponent implements OnInit {
       this.productService.setCart(cart);
     }
       
+  }
+
+  loading(){
+    setTimeout(()=>{this.setLoading},500)
+  }
+
+  setLoading(){
+    this.isLoading=false;
   }
 }
