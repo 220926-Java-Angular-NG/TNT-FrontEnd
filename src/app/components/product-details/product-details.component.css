@@ -1,25 +1,33 @@
-.card-img-top {
-    position: relative;
+.card-img-tops {
+    /* position: relative;
     justify-content: center;
     top:0;
-    left: 10px;
+    left: 10px; */
+    width: 343px;
     height: auto;
-    width: auto;
-    max-height: 200px;
-    max-width: 307px;
-  }
+}
 
-.in-stock{
+.stock {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+.in-stock {
     background-color: rgb(107, 134, 60);
-}
-.low-stock{
-    background-color:gold;
-}
-.no-stock{
-    background-color:crimson;
+    color: aliceblue;
 }
 
-button{
+.low-stock {
+    background-color: gold;
+}
+
+.no-stock {
+    background-color: crimson;
+    color: aliceblue;
+}
+
+button {
     position: absolute;
     justify-content: right;
 
