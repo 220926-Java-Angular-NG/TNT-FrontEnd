@@ -1,22 +1,28 @@
 .card-img-top {
-    position: relative;
+    /* position: relative;
     justify-content: center;
     top:0;
-    left: 10px;
+    left: 10px; */
+    width: 343px;
     height: auto;
-    width: auto;
-    max-height: 200px;
-    max-width: 307px;
   }
+
+.stock {
+    position: relative;
+    left: -160px;
+    top: 40px;
+}
 
 .in-stock{
     background-color: rgb(107, 134, 60);
+    color: aliceblue;
 }
 .low-stock{
     background-color:gold;
 }
 .no-stock{
     background-color:crimson;
+    color: aliceblue;
 }
 
 button{
