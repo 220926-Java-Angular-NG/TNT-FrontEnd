@@ -13,7 +13,7 @@
     <div class="w-25" *ngIf="isLoggedIn">
       <button data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Wish List" 
         class="p-0 pl-2 ml-auto btn border-0 btn-outline-success btn-success text-center" 
-        style="font-size: 35px;width: 45px;height: 45px;" 
+        style="font-size: 30px;width: 45px;height: 45px;" 
         *ngIf="!isInWishList(productInfo)" 
         (click)="addToWishList(productInfo)"
       ><i class="fa fa-regular fa-paw"></i>
@@ -22,7 +22,7 @@
 
       <button data-bs-toggle="tooltip" data-bs-placement="top" title="Remove From Wish List" 
         class="p-0  pl-2 ml-auto btn border-0 btn-danger btn-outline-danger" 
-        style="font-size: 35px;width: 45px;height: 45px;" 
+        style="font-size: 30px;width: 45px;height: 45px;" 
         *ngIf="isInWishList(productInfo)" 
         (click)="removeFromWishList(productInfo)"
       ><i class="fa fa-solid fa-paw"></i>

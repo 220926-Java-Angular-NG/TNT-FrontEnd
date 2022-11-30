@@ -94,8 +94,12 @@ export class ProductCardComponent implements OnInit{
 
   // will update the quantity seen on the product
   updateQuantity(changeQuantityBy:number) {
-    if (this.quantity+changeQuantityBy < 1) this.quantity = 1
-    else this.quantity+=changeQuantityBy
+    let newQuan = this.quantity+changeQuantityBy
+    
+    // quantity by default has to be 1
+    if ( newQuan < 1) this.quantity = 1
+    else if (newQuan > this.productInfo.quantity) this.quantity = this.productInfo.quantity
+    else this.quantity = newQuan
   }
 
   // will remove the item from cart 
