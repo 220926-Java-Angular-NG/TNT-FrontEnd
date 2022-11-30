@@ -21,11 +21,11 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <h1 class="w-100 m-0 navbar-brand p-0 text-center" href="#" >{{userInfo?.firstName}}'s Account</h1>
                 <hr>
-              <a class="dropdown-item" [routerLink]="['/wishlist']">Wishlist <i class="fa-solid fa-paw"></i></a>
-              <a class="dropdown-item" [routerLink]="['/cart']">Cart <i class="fa fa-shopping-cart"></i></a>
+              <a class="dropdown-item" [routerLink]="['/wishlist']"><i class="fa-solid fa-paw mr-3"></i> Wishlist</a>
+              <a class="dropdown-item" [routerLink]="['/cart']"><i class="fa fa-shopping-cart mr-3"></i> Cart</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" [routerLink]="['/change-password']">Change Password <i class="fa fa-solid fa-wrench"></i></a>
-              <a class="dropdown-item" (click)="logout();" style="cursor: pointer;">Logout <i class="fa-solid fa-right-from-bracket"></i></a>
+              <a class="dropdown-item" [routerLink]="['/change-password']"><i class="fa fa-solid fa-wrench mr-3"></i> Change Password</a>
+              <a class="dropdown-item" (click)="logout();" style="cursor: pointer;"><i class="fa-solid fa-right-from-bracket mr-3"></i> Logout</a>
             </div>
           </div>
 
