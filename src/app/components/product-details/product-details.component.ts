@@ -16,6 +16,11 @@ import { CartProduct } from 'src/app/models/cart';
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit {
+  product:Product | undefined;
+  allProducts:Product[]=[];
+  lowThreshold:number = 5
+  isLoggedIn?:boolean;
+  isLoading:boolean = true;
   product: Product | undefined;
   allProducts: Product[] = [];
   lowThreshold: number = 5
@@ -28,11 +33,9 @@ export class ProductDetailsComponent implements OnInit {
   }[] = [];
   subscription!: Subscription;
   totalPrice: number = 0;
-
   cartItemId?: number
   isInCart: boolean = false
   quantity: number = 1
-
 
   constructor(
     private cartService: CartService,
@@ -127,11 +130,19 @@ export class ProductDetailsComponent implements OnInit {
     // will update the quantity seen on the product
     updateQuantity(changeQuantityBy:number) {
       let newQuan = this.quantity+changeQuantityBy
-      
+  }
+
+  loading(){
+    setTimeout(()=>{this.setLoading},500)
+  }
+
+  setLoading(){
+    this.isLoading=false;
+  }
+
       // quantity by default has to be 1
       if ( newQuan < 1) this.quantity = 1
       else if (this.product !== undefined && newQuan > this.product.quantity) this.quantity = this.product.quantity
       else this.quantity = newQuan
     }
-
 }
