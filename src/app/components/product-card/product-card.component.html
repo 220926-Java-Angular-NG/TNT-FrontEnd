@@ -1,5 +1,5 @@
-<div class="card my-2 w-100">
-  <div class="w-100 text-center mx-auto" style="height: 15rem; cursor: pointer;"   (click)="toProduct(productInfo.id, isLoggedIn)">
+<div class="card my-2 w-100" >
+  <div class="w-100 text-center mx-auto" style="height: 15rem;" (click)="toProduct(productInfo.id, isLoggedIn)">
     <!-- <img class=""  src="{{set.pack_image}}" alt="Card image cap"> -->
     <img class="card-img-top" style="height: 15rem;" [src]="productInfo.image" alt="Card image cap">
       <img class="card-img-overlay p-3" *ngIf="productInfo.featured" [src]="featuredBanner">

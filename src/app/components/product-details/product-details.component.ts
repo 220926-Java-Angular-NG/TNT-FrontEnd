@@ -16,11 +16,11 @@ import { CartProduct } from 'src/app/models/cart';
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit {
-  product: Product | undefined;
-  allProducts: Product[] = [];
-  lowThreshold: number = 5
-  isLoggedIn?: boolean;
-
+  product:Product | undefined;
+  allProducts:Product[]=[];
+  lowThreshold:number = 5
+  isLoggedIn?:boolean;
+  isLoading:boolean = true;
   cartCount!: number;
   products: {
     product: Product,
@@ -28,11 +28,9 @@ export class ProductDetailsComponent implements OnInit {
   }[] = [];
   subscription!: Subscription;
   totalPrice: number = 0;
-
   cartItemId?: number
   isInCart: boolean = false
   quantity: number = 1
-
 
   constructor(
     private cartService: CartService,
@@ -134,4 +132,11 @@ export class ProductDetailsComponent implements OnInit {
       else this.quantity = newQuan
     }
 
+  loading(){
+    setTimeout(()=>{this.setLoading},500)
+  }
+
+  setLoading(){
+    this.isLoading=false;
+  }
 }
