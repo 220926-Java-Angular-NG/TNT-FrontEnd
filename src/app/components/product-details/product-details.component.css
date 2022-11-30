@@ -1,4 +1,4 @@
-.card-img-top {
+.card-img-tops {
     /* position: relative;
     justify-content: center;
     top:0;
@@ -8,9 +8,9 @@
   }
 
 .stock {
-    position: relative;
-    left: -160px;
-    top: 40px;
+    position: absolute;
+    left: 20px;
+    top: 20px;
 }
 
 .in-stock{
