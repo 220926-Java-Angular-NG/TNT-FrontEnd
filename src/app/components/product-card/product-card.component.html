@@ -47,21 +47,32 @@
     
   <div class="card-body row w-100 m-0 px-1" *ngIf="isLoggedIn">
     <div class="row w-100 m-0" *ngIf="!isInCart">
-      <div class="col-5">
-        <button (click)="updateQuantity(-1)" class="btn btn-outline-dark p-1 text-center  my-auto"
-          style="min-width: 30px; height: 30px;">
-          -
-        </button>
-        <span class="px-2 my-auto">{{quantity}}</span>
-        <button (click)="updateQuantity(1)" class="btn btn-outline-dark p-1 text-center my-auto"
-          style="min-width: 30px; height: 30px;">
-          +
-        </button>
+      <div class="row w-100 m-0" *ngIf="productInfo.quantity !== 0; else dangericon">
+        <div class="col-5">
+          <button (click)="updateQuantity(-1)" class="btn btn-outline-dark p-1 text-center  my-auto"
+            style="min-width: 30px; height: 30px;">
+            -
+          </button>
+          <span class="px-2 my-auto" >{{quantity}}</span>
+          
+          <button (click)="updateQuantity(1)" class="btn btn-outline-dark p-1 text-center my-auto"
+            style="min-width: 30px; height: 30px;">
+            +
+          </button>
+        </div>
+        <div class="col-7">
+          <button class="btn btn-outline-success  my-auto" (click)="addToCart(productInfo)">Add to Cart</button>
+        </div>
       </div>
-      <div class="col-7">
-        <button class="btn btn-outline-success  my-auto" (click)="addToCart(productInfo)">Add to Cart</button>
+      <ng-template #dangericon>
+
+        <div class="row w-100 m-0">
+          <span class="mx-auto w-75 btn btn-danger">
+            Out Of Stock
+          </span>
+        </div>
+      </ng-template>
       </div>
-    </div>
 
     <div class="row w-100 m-0" *ngIf="isInCart">
 

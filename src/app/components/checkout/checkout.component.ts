@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { CartService } from 'src/app/services/cart.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { CartProduct } from 'src/app/models/cart';
 
 @Component({
   selector: 'app-checkout',
@@ -19,6 +22,9 @@ export class CheckoutComponent implements OnInit {
   cartProducts: Product[] = [];
   finalProducts: {id: number, quantity: number}[] = []; 
 
+  userCartProducts:CartProduct[] = []
+
+
   checkoutForm = new UntypedFormGroup({
     fname: new UntypedFormControl('', Validators.required),
     lname: new UntypedFormControl('', Validators.required),
@@ -32,9 +38,10 @@ export class CheckoutComponent implements OnInit {
     country: new UntypedFormControl('', Validators.required)
   });
 
-  constructor(private productService: ProductService, private router: Router) { }
+  constructor(private authservice:AuthService, private cartService:CartService, private productService: ProductService, private router: Router) { }
 
   ngOnInit(): void {
+    // dep
     this.productService.getCart().subscribe(
       (cart) => {
         this.products = cart.products;
@@ -44,14 +51,27 @@ export class CheckoutComponent implements OnInit {
         this.totalPrice = cart.totalPrice;
       }
     );
+    // end dep
+
+    this.cartService.getCart(this.authservice.getUser().id).subscribe(cart => {
+      this.totalPrice = 0
+      this.userCartProducts = cart
+      this.userCartProducts.forEach(cartItem => {
+        if (cartItem.product)
+          this.totalPrice += (cartItem.quantity * cartItem.product.price)
+      })
+      this.totalPrice = parseFloat(this.totalPrice.toFixed(2))
+    })
   }
 
   onSubmit(): void {
-    this.products.forEach(
+    this.userCartProducts.forEach(
       (element) => {
-        const id = element.product.id;
-        const quantity = element.quantity
-        this.finalProducts.push({id, quantity})
+        if (element.product) {
+          const id = element.product.id;
+          const quantity = element.quantity
+          this.finalProducts.push({id, quantity})
+        }
       } 
     );
 
@@ -60,16 +80,20 @@ export class CheckoutComponent implements OnInit {
         (resp) => console.log(resp),
         (err) => console.log(err),
         () => {
-          let cart = {
-            cartCount: 0,
-            products: [],
-            totalPrice: 0.00
-          };
-          this.productService.setCart(cart);
-          this.router.navigate(['/home']);
+
+          this.cartService.clearUserCart(this.authservice.getUser()).subscribe(res => {
+            console.log(res)
+            this.router.navigate(['/home']);
+          })
+          // let cart = {
+          //   cartCount: 0,
+          //   products: [],
+          //   totalPrice: 0.00
+          // };
+          // this.productService.setCart(cart);
+          
         } 
       );
-
     } else {
       this.router.navigate(['/home']);
     }
