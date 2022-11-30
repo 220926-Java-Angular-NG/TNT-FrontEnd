@@ -1,7 +1,7 @@
 <div class="row py-3 w-100m-0 p-0" *ngIf="cartProduct.product">
   <!-- image -->
-  <div class="col-3 col-sm-3 col-md-2 text-center bg-white rounded" style="height: 4rem; width: auto;">
-    <img class="mx-auto  img-fluid border-0 h-100"  [src]="cartProduct.product.image" alt="Card image cap">
+  <div class="col-3 col-sm-3 col-md-2 text-center bg-white rounded" [routerLink]="['/products/'+cartProduct.product.id]" style="cursor: pointer;height: 4rem; width: auto;">
+    <img class="mx-auto  img-fluid border-0 h-100"   [src]="cartProduct.product.image" alt="Card image cap">
   </div>
   <!-- name -->
   <!-- quantity select -->

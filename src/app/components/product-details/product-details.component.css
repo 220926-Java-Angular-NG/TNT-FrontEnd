@@ -5,7 +5,7 @@
     left: 10px; */
     width: 343px;
     height: auto;
-  }
+}
 
 .stock {
     position: absolute;
@@ -13,22 +13,22 @@
     top: 20px;
 }
 
-.in-stock{
+.in-stock {
     background-color: rgb(107, 134, 60);
     color: aliceblue;
 }
-.low-stock{
-    background-color:gold;
+
+.low-stock {
+    background-color: gold;
 }
-.no-stock{
-    background-color:crimson;
+
+.no-stock {
+    background-color: crimson;
     color: aliceblue;
 }
 
-button{
+button {
     position: absolute;
     justify-content: right;
 
 }
-
-

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -18,6 +19,10 @@ export class NavbarComponent implements OnInit{
   isLoggedIn = this.authService.loggedIn;
   loggedInSubscription!:Subscription;
 
+  collapse:boolean = false
+
+  userInfo?:User
+
 
   constructor(
     private authService: AuthService,
@@ -27,6 +32,7 @@ export class NavbarComponent implements OnInit{
   
   ngOnInit(): void {
 
+
     // update the amount of items in cart
     this.cartService.updateCartCount(this.authService.getUser().id)
 
@@ -35,10 +41,13 @@ export class NavbarComponent implements OnInit{
       if (!this.isLoggedIn && status) {
         this.isLoggedIn = status;
         this.cartService.updateCartCount(this.authService.getUser().id);
+        
       } else {
         this.isLoggedIn = status
       }
     })
+
+    this.userInfo = this.authService.getUser()
     
     // this will attempt to make an 'Authorized' request to the backend
     // if this fails, then the user is not logged in
@@ -66,6 +75,10 @@ export class NavbarComponent implements OnInit{
   ngOnDestroy() {
     this.loggedInSubscription.unsubscribe();
     this.cartCountSubscription.unsubscribe();
+  }
+
+  collapseToggle(newCollapse:boolean = !this.collapse) {
+    this.collapse = newCollapse
   }
 
   logout() {
