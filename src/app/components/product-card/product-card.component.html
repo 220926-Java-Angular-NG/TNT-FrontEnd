@@ -10,7 +10,7 @@
   <div class="card-title px-3 d-flex justify-content-between">
     
     <h5 class="card-title w-75 mt-2 pt-1">{{productInfo.name}}</h5>
-    <div class="w-25">
+    <div class="w-25" *ngIf="isLoggedIn">
       <button data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Wish List" 
         class="p-0 pl-2 ml-auto btn border-0 btn-outline-success btn-success text-center" 
         style="font-size: 35px;width: 45px;height: 45px;" 

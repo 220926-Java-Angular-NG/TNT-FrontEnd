@@ -40,6 +40,21 @@ export class NavbarComponent implements OnInit{
       }
     })
     
+    // this will attempt to make an 'Authorized' request to the backend
+    // if this fails, then the user is not logged in
+    // therefore log them out locally, and make them login again
+    this.productService.getProducts().subscribe(
+      (resp) => console.log('testing to see if the current login is useful'),
+      (err) => {
+        this.authService.logout().subscribe(msg => {
+          this.authService.handleLogout()
+          this.router.navigate(['login'])
+        })
+        
+      },
+      () => console.log("Products Retrieved")
+    );
+
     // get the new cartCount everytime it changes
     this.cartCountSubscription = this.cartService.getCartCount().subscribe(
       (cart) => this.cartCount = cart
