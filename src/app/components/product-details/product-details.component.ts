@@ -21,6 +21,7 @@ export class ProductDetailsComponent implements OnInit {
   lowThreshold:number = 5
   isLoggedIn?:boolean;
   isLoading:boolean = true;
+
   cartCount!: number;
   products: {
     product: Product,
@@ -125,7 +126,7 @@ export class ProductDetailsComponent implements OnInit {
     // will update the quantity seen on the product
     updateQuantity(changeQuantityBy:number) {
       let newQuan = this.quantity+changeQuantityBy
-      
+
       // quantity by default has to be 1
       if ( newQuan < 1) this.quantity = 1
       else if (this.product !== undefined && newQuan > this.product.quantity) this.quantity = this.product.quantity

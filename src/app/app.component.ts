@@ -9,5 +9,5 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'E-Commerce Client';
 
-  constructor(private authService:AuthService){}
+  constructor(){}
 }

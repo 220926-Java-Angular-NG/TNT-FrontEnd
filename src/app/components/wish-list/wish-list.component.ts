@@ -61,6 +61,8 @@ export class WishListComponent implements OnInit {
       this.router.navigate(['/home'])
     }, 500)
 
+    this.router.navigate(['home']);
+
   }
 
 }
