@@ -1,0 +1,15 @@
+.discover-badge {
+  color: black;
+  transition: .5s;
+}
+.discover-badge-icon {
+  font-size: 30px;
+}
+
+.description {
+  font-size: 14px;
+}
+
+.discover-badge:hover {
+  color: rgb(109, 104, 104);
+}

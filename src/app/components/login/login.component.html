@@ -24,17 +24,4 @@
 </div>
 
 <hr>
-<div class="container pt-4">
-  <p class="h4 text-center pb-4">
-    Featured Items
-  </p>
-  <div class="row m-0 d-flex justify-content-around text-center">
-     <div class="col-lg-4 col-xl-3 col-12 col-sm-10 col-md-6 mx-auto" *ngFor="let product of featuredProducts">
-          <app-product-card
-              class="cardListItem"
-              [productInfo]="product"
-          ></app-product-card> 
-      </div> 
-  </div>
-</div>
-
+<app-featured-items></app-featured-items>
