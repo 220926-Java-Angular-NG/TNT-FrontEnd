@@ -10,7 +10,7 @@
         <tr class="text-center">
           <th scope="col">Name</th>
           <th scope="col">Description</th>
-          <th scope="col">Stock</th>
+          <!-- <th scope="col">Stock</th> -->
           <th scope="col"></th>
         </tr>
       </thead>
@@ -18,7 +18,7 @@
         <tr *ngFor="let wish of wishList;" class="text-center">
           <td> <a [routerLink]="['/products/'+wish.id]"> {{wish.name}} </a></td>
           <td>{{wish.description}}</td>
-          <td>{{wish.quantity}}</td>
+          <!-- <td>{{wish.quantity}}</td> -->
           <td>
             <button type="button" data-toggle="tooltip" data-placement="top" title="Remove From WishList"
               class="p-0 pl-1  text-center ml-auto btn border-0 btn-outline-danger"
