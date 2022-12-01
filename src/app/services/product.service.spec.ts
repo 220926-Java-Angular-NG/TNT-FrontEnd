@@ -18,7 +18,7 @@ fdescribe('ProductService', () => {
       products.push(product)
     }
 
-    httpClientSpy = jasmine.createSpyObj<HttpClient>('HttpClient', ['get'],['patch']);
+    httpClientSpy = jasmine.createSpyObj<HttpClient>('HttpClient', ['get','patch']);
 
     TestBed.configureTestingModule({
       providers:[{provide:HttpClient, useValue: httpClientSpy}]
