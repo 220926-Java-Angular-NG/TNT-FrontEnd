@@ -58,6 +58,8 @@ export class WishListComponent implements OnInit {
 
     this.updateWishList(this.wishList);
 
+    this.router.navigate(['home']);
+
   }
 
 }
