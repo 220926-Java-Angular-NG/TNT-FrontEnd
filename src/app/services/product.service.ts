@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 interface Cart {
   cartCount: number;
@@ -36,10 +37,11 @@ export class ProductService {
     return this._cart.next(latestValue);
   }
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService:AuthService) { }
 
   public getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(environment.baseUrl+this.productUrl, {headers: environment.headers, withCredentials: environment.withCredentials});
+    let headers = this.authService.getUserHeader()
+    return this.http.get<Product[]>(environment.baseUrl+this.productUrl, {headers, withCredentials: environment.withCredentials});
   }
 
   public getSingleProduct(id: number): Observable<Product> {

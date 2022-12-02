@@ -1,6 +1,7 @@
 .discover-badge {
   color: black;
   transition: .5s;
+  cursor: pointer;
 }
 .discover-badge-icon {
   font-size: 30px;

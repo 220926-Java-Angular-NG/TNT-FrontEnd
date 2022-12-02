@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 import { Product } from '../models/product';
+import { ThisReceiver } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -29,22 +30,28 @@ export class AuthService {
 
   login(email: string, password: string): Observable<User> {
     const payload = {email:email, password:password};
-    return this.http.post<User>(`${this.authUrl}/login`, payload, {headers: environment.headers, withCredentials: environment.withCredentials});
+    return this.http.post<User>(`${this.authUrl}/login`, payload);
   }
 
   logout(): Observable<any>{
     return this.http.post<any>(`${this.authUrl}/logout`, null, {headers: environment.headers, withCredentials: environment.withCredentials});
   }
 
-  register(firstName: string, lastName: string, email: string, password: string, wishList: Product[]): Observable<any> {
-    const payload = {firstName: firstName, lastName: lastName, email: email, password: password, wishList: wishList};
-    return this.http.post<any>(`${this.authUrl}/register`, payload, {headers: environment.headers});
+  register(firstName: string, lastName: string, email: string, password: string): Observable<any> {
+    const payload = {email, password, firstName, lastName};
+    return this.http.post<any>(`${this.authUrl}/register`, payload);
   }
 
   setUser(user:User) {
     this.user = user
     // localStorage only stores string... store the user as a string
     localStorage.setItem('user', JSON.stringify(this.user))
+  }
+
+  getUserHeader() {
+    let headers = environment.headers
+    headers['Authorization'] = `Bearer ${this.getUser().token}`
+    return headers
   }
 
   // to get the user that is currently logged in
@@ -100,7 +107,7 @@ export class AuthService {
 
 
   public getFeaturedProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.authUrl}/featured`, {headers: environment.headers});
+    return this.http.get<Product[]>(`${this.authUrl}/featured`);
   }
 
   public changePassword(email: string, oldPassword: string,newPassword:string): Observable<User> {
