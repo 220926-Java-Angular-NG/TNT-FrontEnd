@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
 
-interface Cart {
+export interface Cart {
   cartCount: number;
   products: {
     product: Product,

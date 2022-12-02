@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs/internal/observable/of';
@@ -24,7 +24,7 @@ fdescribe('WishListComponent', () => {
   
   beforeEach(async () => {
 
-    authServiceSpy = jasmine.createSpyObj<AuthService>(['isLoggedIn', 'getUser', 'updateUser', 'setUser']);
+    authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', ['isLoggedIn', 'getUser', 'updateUser', 'setUser']);
     user = {id:1, wishList: [product1, product2, product3] };
 
     authServiceSpy.isLoggedIn.and.returnValue(of(true));
@@ -33,7 +33,9 @@ fdescribe('WishListComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [ WishListComponent ],
-      imports: [RouterTestingModule],
+      imports: [ RouterTestingModule.withRoutes(
+          [{path: 'login', component: BlankComponent}]
+        )],
       providers: [{provide: AuthService, useValue: authServiceSpy}],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -56,10 +58,8 @@ fdescribe('WishListComponent', () => {
     expect(component.user).toEqual(user);
   })
 
-  it('should delete the product form the wishlist', () => {
-    console.log(component.user)
+  it('should delete the product from the wishlist', () => {
     authServiceSpy.updateUser.and.returnValue(of(updatedUser));
-    console.log(component.user);
     authServiceSpy.setUser;
     component.removeFromWishList(product2);
     expect(component.wishList).toEqual([product1, product3]);
@@ -71,4 +71,13 @@ fdescribe('WishListComponent', () => {
     component.emptyWishList();
     expect(component.wishList).toEqual([]);
   })
+
+
+  @Component({
+    selector: `blank-component`,
+    template: `<div></div>`
+  })
+  class BlankComponent{
+
+  }
 });

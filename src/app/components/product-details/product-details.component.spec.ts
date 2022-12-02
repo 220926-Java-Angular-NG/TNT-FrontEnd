@@ -1,14 +1,66 @@
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs/internal/observable/of';
+import { CartProduct } from 'src/app/models/cart';
+import { Product } from 'src/app/models/product';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
+import { Cart, ProductService } from 'src/app/services/product.service';
 
 import { ProductDetailsComponent } from './product-details.component';
 
-describe('ProductDetailsComponent', () => {
+fdescribe('ProductDetailsComponent', () => {
   let component: ProductDetailsComponent;
   let fixture: ComponentFixture<ProductDetailsComponent>;
-
+  
+  // Product Mocks
+  const product1:Product = new Product(1, 'p1', 1, 'product 1', 1.00, 'img URL', true);
+  const product2:Product = new Product(2, 'p1', 1, 'product 1', 1.00, 'img URL', false);
+  const product3:Product = new Product(3, 'p1', 1, 'product 1', 1.00, 'img URL', false);
+  const userMock:User = {id:1};
+  
+  // dependancy injection mocks
+  let cartServiceSpy: jasmine.SpyObj<CartService>;
+  let routeSpy: jasmine.SpyObj<ActivatedRoute>;
+  let productServiceSpy: jasmine.SpyObj<ProductService>;
+  let authServiceSpy: jasmine.SpyObj<AuthService>;
+  
+  let cartProduct1Mock: CartProduct;
+  let cartProduct2Mock: CartProduct;
+  let cartProduct3Mock: CartProduct;
+  let cartMock: Cart;
+  
+  
   beforeEach(async () => {
+    productServiceSpy = jasmine.createSpyObj<ProductService>('ProductService', ['getProducts', 'getCart'])
+    authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', ['isLoggedIn', 'getUser']);
+    routeSpy = jasmine.createSpyObj<ActivatedRoute>('ActivatedRoute', ['snapshot']);
+    cartServiceSpy = jasmine.createSpyObj<CartService>('CartService', ['getCart', 'addToCart', 'updateCartQuantity', 'removeFromCart']);
+
+    // After creating spy objects, we are mocking the values
+    cartProduct1Mock = {id: 1, quantity: 1, product: product1, user: userMock};
+    cartProduct2Mock = {id: 1, quantity: 1, product: product2, user: userMock};
+    cartProduct3Mock = {id: 1, quantity: 1, product: product3, user: userMock};
+    cartMock = {cartCount: 2, products: [{product: product1, quantity: 1}, {product: product2, quantity: 1}], totalPrice: 2.00}
+    productServiceSpy.getProducts.and.returnValues(of([product1, product2, product3]));
+    authServiceSpy.isLoggedIn.and.returnValue(of(true));
+    authServiceSpy.getUser.and.returnValue(userMock);
+    productServiceSpy.getCart.and.returnValue(of(cartMock));
+    cartServiceSpy.getCart.and.returnValue(of([cartProduct1Mock,cartProduct2Mock, cartProduct3Mock]));
+
+
     await TestBed.configureTestingModule({
-      declarations: [ ProductDetailsComponent ]
+      imports: [RouterTestingModule.withRoutes(
+          [{path: 'login', component: BlankComponent}]
+        )],
+      declarations: [ ProductDetailsComponent ],
+      providers: [{provide: ProductService, useValue: productServiceSpy},
+        {provide: AuthService, useValue: authServiceSpy},
+        {provide: CartService, useValue: cartServiceSpy}],
+      schemas:[CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
 
@@ -20,4 +72,20 @@ describe('ProductDetailsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it ('should add a product to the cart', () => {
+    authServiceSpy.getUser.and.returnValue(userMock);
+    component.addToCart(product3);
+
+    expect(component.cartCount).toEqual(3);
+  });
+
+
+  @Component({
+    selector: `blank-component`,
+    template: `<div></div>`
+  })
+  class BlankComponent{
+
+  }
 });
