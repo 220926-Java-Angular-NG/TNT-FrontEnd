@@ -54,17 +54,18 @@ export class NavbarComponent implements OnInit{
     // therefore log them out locally, and make them login again
     
     // TODO: Need this after JWT implementation
-    // this.productService.getProducts().subscribe(
-    //   (resp) => console.log('testing to see if the current login is useful'),
-    //   (err) => {
-    //     this.authService.logout().subscribe(msg => {
-    //       this.authService.handleLogout()
-    //       this.router.navigate(['login'])
-    //     })
-        
-    //   },
-    //   () => console.log("Products Retrieved")
-    // );
+    this.productService.getProducts().subscribe(
+      (resp) => console.log('testing to see if the current login is useful'),
+      (err) => {
+        this.authService.logout().subscribe(
+          (msg) => {
+              console.log('logged out')
+          })
+          this.authService.handleLogout()
+          this.router.navigate(['login'])
+      },
+      () => console.log("Products Retrieved")
+    );
 
     // get the new cartCount everytime it changes
     this.cartCountSubscription = this.cartService.getCartCount().subscribe(
