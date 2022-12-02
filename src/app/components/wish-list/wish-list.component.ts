@@ -23,14 +23,6 @@ export class WishListComponent implements OnInit {
     }
   }
 
-  addToWishList(product : Product) : void {
-
-    if (this.wishList) {
-    this.wishList.push(product);
-    this.updateWishList(this.wishList);
-    }
-  }
-
   updateWishList(wishList: Product[]) : void {
     let user1: User = this.authService.getUser();
       user1.wishList = wishList;
@@ -57,6 +49,8 @@ export class WishListComponent implements OnInit {
     this.wishList = [];
 
     this.updateWishList(this.wishList);
+
+    this.router.navigate(['home']);
 
   }
 
