@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { RegisterComponent } from './register.component';
 
-fdescribe('RegisterComponent', () => {
+describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
   let authServiceSpy: jasmine.SpyObj<AuthService>;
@@ -46,10 +46,10 @@ fdescribe('RegisterComponent', () => {
   });
 
   it('should register a full user', ()=>{
-    component.registerForm.controls.email.setValue('mhanson@gmail.com')
-    component.registerForm.controls.fname.setValue('matt')
-    component.registerForm.controls.lname.setValue('hanson')
-    component.registerForm.controls.password.setValue('1234')
+    component.registerForm.controls.email.setValue('mhanson@gmail.com');
+    component.registerForm.controls.fname.setValue('matt');
+    component.registerForm.controls.lname.setValue('hanson');
+    component.registerForm.controls.password.setValue('1234');
     let subObj = of(true);
     authServiceSpy.register.and.returnValue(subObj);
     
@@ -58,10 +58,16 @@ fdescribe('RegisterComponent', () => {
     let response:any = '';
      
 
-    component.onSubmit()
-    subObj.subscribe(()=>{})
+    component.onSubmit();
+    subObj.subscribe(()=>{});
 
-    expect(component.registerFail).toBe(false)
+    expect(component.registerFail).toBe(false);
+  });
+
+  it('should have inputs for required form fields', ()=>{
+    let page:HTMLElement = fixture.nativeElement;
+
+    expect(page.querySelectorAll('input').length).toBe(4);
   });
 
 
