@@ -38,14 +38,14 @@ fdescribe('ProductDetailsComponent', () => {
     productServiceSpy = jasmine.createSpyObj<ProductService>('ProductService', ['getProducts', 'getCart'])
     authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', ['isLoggedIn', 'getUser']);
     routeSpy = jasmine.createSpyObj<ActivatedRoute>('ActivatedRoute', ['snapshot']);
-    cartServiceSpy = jasmine.createSpyObj<CartService>('CartService', ['getCart', 'addToCart', 'updateCartQuantity', 'removeFromCart']);
+    cartServiceSpy = jasmine.createSpyObj<CartService>('CartService', ['getCart', 'addToCart', 'updateCartCount', 'removeFromCart']);
 
     // After creating spy objects, we are mocking the values
     cartProduct1Mock = {id: 1, quantity: 1, product: product1, user: userMock};
-    cartProduct2Mock = {id: 1, quantity: 1, product: product2, user: userMock};
-    cartProduct3Mock = {id: 1, quantity: 1, product: product3, user: userMock};
+    cartProduct2Mock = {id: 2, quantity: 1, product: product2, user: userMock};
+    cartProduct3Mock = {id: 3, quantity: 1, product: product3, user: userMock};
     cartMock = {cartCount: 2, products: [{product: product1, quantity: 1}, {product: product2, quantity: 1}], totalPrice: 2.00}
-    productServiceSpy.getProducts.and.returnValues(of([product1, product2, product3]));
+    productServiceSpy.getProducts.and.returnValues(of([product1, product2]));
     authServiceSpy.isLoggedIn.and.returnValue(of(true));
     authServiceSpy.getUser.and.returnValue(userMock);
     productServiceSpy.getCart.and.returnValue(of(cartMock));
@@ -74,11 +74,34 @@ fdescribe('ProductDetailsComponent', () => {
   });
 
   it ('should add a product to the cart', () => {
+    let cartAddMock : Cart = {cartCount: 3, products: [{product: product1, quantity: 1}, {product: product2, quantity: 1}, {product: product3, quantity: 1}], totalPrice: 3.00}
     authServiceSpy.getUser.and.returnValue(userMock);
+    cartServiceSpy.addToCart.and.returnValue(of(cartProduct3Mock));
+    cartServiceSpy.updateCartCount;
+    productServiceSpy.getCart.and.returnValue(of(cartAddMock));
     component.addToCart(product3);
-
-    expect(component.cartCount).toEqual(3);
+    expect(component.cartItemId).toEqual(3);
+    expect(component.isInCart).toBe(true);
   });
+
+  it ('should remove product from the cart', () => {
+    cartServiceSpy.removeFromCart.and.returnValue(of(false));
+    cartServiceSpy.updateCartCount;
+    component.removeFromCart();
+    expect(component.isInCart).toBe(false);
+  });
+
+  it ('should set loading to false', () => {
+    component.setLoading();
+    expect(component.isLoading).toEqual(false);
+  })
+
+  it('should update quantity', () => {
+    component.updateQuantity(5);
+    expect(component.quantity).toEqual(6);
+  })
+
+
 
 
   @Component({
