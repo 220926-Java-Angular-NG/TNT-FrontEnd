@@ -6,7 +6,7 @@ import { CartService } from './cart.service';
 import { User } from '../models/user';
 import { of } from 'rxjs';
 
-fdescribe('CartService', () => {
+describe('CartService', () => {
   let service: CartService;
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
   var cartProducts:CartProduct[] = [];
