@@ -16,12 +16,17 @@ fdescribe('WishListComponent', () => {
   const product2:Product = new Product(2, 'p1', 1, 'product 1', 1.00, 'img URL', false);
   const product3:Product = new Product(3, 'p1', 1, 'product 1', 1.00, 'img URL', false);
 
-  const user : User = {id:1, wishList: [product1, product2, product3] };
+  let user : User;
   const updatedUser: User = {id:1, wishList: [product1, product3]};
+  const userWithOutWishList = {id: 1, wishList: []};
 
-  const authServiceSpy = jasmine.createSpyObj<AuthService>(['isLoggedIn', 'getUser', 'updateUser', 'setUser']);
+  let authServiceSpy : jasmine.SpyObj<AuthService>;
+  
   beforeEach(async () => {
-    
+
+    authServiceSpy = jasmine.createSpyObj<AuthService>(['isLoggedIn', 'getUser', 'updateUser', 'setUser']);
+    user = {id:1, wishList: [product1, product2, product3] };
+
     authServiceSpy.isLoggedIn.and.returnValue(of(true));
     authServiceSpy.getUser.and.returnValue(user);
    
@@ -52,9 +57,18 @@ fdescribe('WishListComponent', () => {
   })
 
   it('should delete the product form the wishlist', () => {
-    component.removeFromWishList(product2);
+    console.log(component.user)
     authServiceSpy.updateUser.and.returnValue(of(updatedUser));
+    console.log(component.user);
     authServiceSpy.setUser;
+    component.removeFromWishList(product2);
     expect(component.wishList).toEqual([product1, product3]);
+  })
+
+  it ('should remove all the items from the wishlist', () => {
+    authServiceSpy.updateUser.and.returnValue(of(userWithOutWishList));
+    authServiceSpy.setUser;
+    component.emptyWishList();
+    expect(component.wishList).toEqual([]);
   })
 });
