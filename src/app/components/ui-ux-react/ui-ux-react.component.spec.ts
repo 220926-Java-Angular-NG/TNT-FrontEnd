@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiUxReactComponent } from './ui-ux-react.component';
 
-fdescribe('UiUxReactComponent', () => {
+describe('UiUxReactComponent', () => {
   let testHostComponent:TestHostComponent;
   let testHostFixture: ComponentFixture<TestHostComponent>;
 

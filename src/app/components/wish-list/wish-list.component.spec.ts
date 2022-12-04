@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { WishListComponent } from './wish-list.component';
 
-fdescribe('WishListComponent', () => {
+describe('WishListComponent', () => {
   let component: WishListComponent;
   let fixture: ComponentFixture<WishListComponent>;
 

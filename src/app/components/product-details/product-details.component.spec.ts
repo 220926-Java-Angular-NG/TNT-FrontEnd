@@ -12,7 +12,7 @@ import { Cart, ProductService } from 'src/app/services/product.service';
 
 import { ProductDetailsComponent } from './product-details.component';
 
-fdescribe('ProductDetailsComponent', () => {
+describe('ProductDetailsComponent', () => {
   let component: ProductDetailsComponent;
   let fixture: ComponentFixture<ProductDetailsComponent>;
   
@@ -24,7 +24,6 @@ fdescribe('ProductDetailsComponent', () => {
   
   // dependancy injection mocks
   let cartServiceSpy: jasmine.SpyObj<CartService>;
-  let routeSpy: jasmine.SpyObj<ActivatedRoute>;
   let productServiceSpy: jasmine.SpyObj<ProductService>;
   let authServiceSpy: jasmine.SpyObj<AuthService>;
   
@@ -37,7 +36,6 @@ fdescribe('ProductDetailsComponent', () => {
   beforeEach(async () => {
     productServiceSpy = jasmine.createSpyObj<ProductService>('ProductService', ['getProducts', 'getCart'])
     authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', ['isLoggedIn', 'getUser']);
-    routeSpy = jasmine.createSpyObj<ActivatedRoute>('ActivatedRoute', ['snapshot']);
     cartServiceSpy = jasmine.createSpyObj<CartService>('CartService', ['getCart', 'addToCart', 'updateCartCount', 'removeFromCart']);
 
     // After creating spy objects, we are mocking the values

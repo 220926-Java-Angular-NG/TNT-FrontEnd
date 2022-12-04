@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { ResponseHandlerService } from './response-handler.service';
 
-fdescribe('ResponseHandlerService', () => {
+describe('ResponseHandlerService', () => {
   let service: ResponseHandlerService;
 
   beforeEach(() => {
