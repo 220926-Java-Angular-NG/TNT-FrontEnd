@@ -135,14 +135,14 @@ export class ProductCardComponent implements OnInit {
   }
 
   addToWishList(product: Product): void {
-    console.log(this.wishList)
+    console.log("wishlist", this.wishList)
     if (this.wishList) {
       this.wishList.push(product);
       this.updateWishList(this.wishList);
     }
   }
 
-  updateWishList(wishList: Product[]): void {
+  private updateWishList(wishList: Product[]): void {
     let user1: User = this.authService.getUser();
     user1.wishList = wishList;
 

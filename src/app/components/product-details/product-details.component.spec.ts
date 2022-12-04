@@ -17,9 +17,9 @@ describe('ProductDetailsComponent', () => {
   let fixture: ComponentFixture<ProductDetailsComponent>;
   
   // Product Mocks
-  const product1:Product = new Product(1, 'p1', 1, 'product 1', 1.00, 'img URL', true);
-  const product2:Product = new Product(2, 'p1', 1, 'product 1', 1.00, 'img URL', false);
-  const product3:Product = new Product(3, 'p1', 1, 'product 1', 1.00, 'img URL', false);
+  const product1:Product = new Product(1, 'p1', 1, 'product 1', 1.00, '../../assets/images/Testing.png', true);
+  const product2:Product = new Product(2, 'p1', 1, 'product 1', 1.00, '../../assets/images/Testing.png', false);
+  const product3:Product = new Product(3, 'p1', 1, 'product 1', 1.00, '../../assets/images/Testing.png', false);
   const userMock:User = {id:1};
   
   // dependancy injection mocks
