@@ -10,7 +10,7 @@ import { CartService } from 'src/app/services/cart.service';
 
 import { ProductCardComponent } from './product-card.component';
 
-fdescribe('ProductCardComponent', () => {
+describe('ProductCardComponent', () => {
   let component: ProductCardComponent;
   let fixture: ComponentFixture<ProductCardComponent>;
 
@@ -40,10 +40,13 @@ fdescribe('ProductCardComponent', () => {
     cartProduct1Mock = {id: 1, quantity: 1, product: product1, user: userMock};
     cartProduct2Mock = {id: 2, quantity: 1, product: product2, user: userMock};
     cartProduct3Mock = {id: 3, quantity: 1, product: product3, user: userMock};
+    
+    
     authServiceSpy.isLoggedIn.and.returnValue(of(true));
     authServiceSpy.getUser.and.returnValue(userMock);
     cartServiceSpy.getCart.and.returnValues(of([cartProduct1Mock, cartProduct2Mock]));
 
+    
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes(
         [{path: 'login', component: BlankComponent}]
@@ -54,33 +57,47 @@ fdescribe('ProductCardComponent', () => {
       schemas:[CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
+
   });
 
   beforeEach(() => {
+
     fixture = TestBed.createComponent(ProductCardComponent);
     component = fixture.componentInstance;
     component.productInfo = product1;
     component.wishList = userMock.wishList;
     fixture.detectChanges();
+    console.log('wishList testing', component.wishList);
+  });
+
+  afterEach(() => {
+    component.wishList = userMock.wishList;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
+
+  it('should have 2 items in the wish list', () => {
+    expect(component.wishList?.length).toBe(2);
+  });
+
   it('should add product3 to the cart', () => {
+    component.productInfo = product3;
+    fixture.detectChanges();
     cartServiceSpy.addToCart.and.returnValue(of(cartProduct3Mock));
     cartServiceSpy.updateCartCount;
-    component.addToCart(product3);
+    component.addToCart(component.productInfo);
     expect(component.cartItemId).toEqual(cartProduct3Mock.product?.id);
   });
 
-  it('should have 2 items in the wish list', () => {
-    expect(component.wishListCount).toBe(2);
-  });
+ 
 
   it('should check if product3 is in the wish list', () => {
-    expect(component.isInWishList(product3)).toBe(false);
+    component.productInfo = product3;
+    fixture.detectChanges();
+    expect(component.isInWishList(component.productInfo)).toBe(false);
   });
 
   it('should add product3 to wish list', () => {
@@ -88,7 +105,8 @@ fdescribe('ProductCardComponent', () => {
     authServiceSpy.updateUser.and.returnValue(of(updatedUser));
     authServiceSpy.setUser;
     component.addToWishList(product3);
-    expect(component.wishList).toEqual(updatedUser.wishList);
+    expect(component.wishList).toContain(product3);
+    component.wishList = userMock.wishList;
   });
 
   it('should remove product2 from the wish list', () => {
@@ -96,7 +114,7 @@ fdescribe('ProductCardComponent', () => {
     authServiceSpy.updateUser.and.returnValue(of(updatedUser));
     authServiceSpy.setUser;
     component.removeFromWishList(product2);
-    expect(component.wishList).toEqual(updatedUser.wishList);
+    expect(component.wishList).not.toContain(product2);
   });
 
   it('should update quantity', () => {
