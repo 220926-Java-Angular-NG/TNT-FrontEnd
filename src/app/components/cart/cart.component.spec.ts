@@ -12,6 +12,8 @@ import { CartComponent } from './cart.component';
 describe('CartComponent', () => {
   let component: CartComponent;
   let fixture: ComponentFixture<CartComponent>;
+
+  // Service Mocks
   let productService: ProductService;
   let router:RouterTestingModule;
   let cartService: CartService;
@@ -41,7 +43,7 @@ describe('CartComponent', () => {
     productService = new ProductService(httpClientSpy);
     authService = new AuthService(httpClientSpy);
     cartService = new CartService(httpClientSpy);
-    //router = new RouterTestingModule();
+    router = new RouterTestingModule();
   });
 
   it('should create', () => {

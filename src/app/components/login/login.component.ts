@@ -30,8 +30,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private respHandler:ResponseHandlerService,
-              private msg:MessagesService) { }
+              private respHandler:ResponseHandlerService) { }
 
   ngOnInit(): void {
     this.loggedInSubscription = this.authService.isLoggedIn().subscribe(isLoggedIn => {

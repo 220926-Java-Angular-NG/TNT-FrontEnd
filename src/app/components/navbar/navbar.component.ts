@@ -32,7 +32,6 @@ export class NavbarComponent implements OnInit{
   
   ngOnInit(): void {
 
-
     // update the amount of items in cart
     this.cartService.updateCartCount(this.authService.getUser().id)
 
@@ -66,6 +65,7 @@ export class NavbarComponent implements OnInit{
       },
       () => console.log("Products Retrieved")
     );
+    
 
     // get the new cartCount everytime it changes
     this.cartCountSubscription = this.cartService.getCartCount().subscribe(
@@ -87,7 +87,6 @@ export class NavbarComponent implements OnInit{
   logout() {
     this.authService.logout().subscribe(res => {
       this.authService.handleLogout()
-      localStorage.clear()
       this.router.navigate(['login']);
     });
   }

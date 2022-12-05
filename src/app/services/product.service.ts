@@ -5,7 +5,7 @@ import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 
-interface Cart {
+export interface Cart {
   cartCount: number;
   products: {
     product: Product,

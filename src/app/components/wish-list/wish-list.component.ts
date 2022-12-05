@@ -44,7 +44,7 @@ export class WishListComponent implements OnInit {
     }
   }
 
-  emptyWishList(){
+  emptyWishList(): void{
 
     this.wishList = [];
 

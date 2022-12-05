@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ProductService } from './product.service';
 import { of } from 'rxjs';
 
-fdescribe('ProductService', () => {
+describe('ProductService', () => {
   let service: ProductService;
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
   var products:Product[] = [];
@@ -18,7 +18,7 @@ fdescribe('ProductService', () => {
       products.push(product)
     }
 
-    httpClientSpy = jasmine.createSpyObj<HttpClient>('HttpClient', ['get'],['patch']);
+    httpClientSpy = jasmine.createSpyObj<HttpClient>('HttpClient', ['get','patch']);
 
     TestBed.configureTestingModule({
       providers:[{provide:HttpClient, useValue: httpClientSpy}]
