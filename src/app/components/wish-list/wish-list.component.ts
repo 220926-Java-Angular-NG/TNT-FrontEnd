@@ -12,20 +12,14 @@ import { AuthService } from 'src/app/services/auth.service';
 export class WishListComponent implements OnInit {
 
   wishList?: Product[] = [];
+  user?:User
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     if ((this.authService.isLoggedIn()).subscribe()) {
+      this.user = this.authService.getUser()
       this.wishList =  this.authService.getUser().wishList;
-    }
-  }
-
-  addToWishList(product : Product) : void {
-
-    if (this.wishList) {
-    this.wishList.push(product);
-    this.updateWishList(this.wishList);
     }
   }
 
@@ -50,11 +44,13 @@ export class WishListComponent implements OnInit {
     }
   }
 
-  emptyWishList(){
+  emptyWishList(): void{
 
     this.wishList = [];
 
     this.updateWishList(this.wishList);
+
+    this.router.navigate(['home']);
 
   }
 

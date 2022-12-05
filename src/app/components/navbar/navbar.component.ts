@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -17,6 +18,10 @@ export class NavbarComponent implements OnInit{
 
   isLoggedIn = this.authService.loggedIn;
   loggedInSubscription!:Subscription;
+
+  collapse:boolean = false
+
+  userInfo?:User
 
 
   constructor(
@@ -35,11 +40,30 @@ export class NavbarComponent implements OnInit{
       if (!this.isLoggedIn && status) {
         this.isLoggedIn = status;
         this.cartService.updateCartCount(this.authService.getUser().id);
+        
       } else {
         this.isLoggedIn = status
       }
     })
+
+    this.userInfo = this.authService.getUser()
     
+    // this will attempt to make an 'Authorized' request to the backend
+    // if this fails, then the user is not logged in
+    // therefore log them out locally, and make them login again
+    
+    this.productService.getProducts().subscribe(
+      (resp) => console.log('testing to see if the current login is useful'),
+      (err) => {
+        this.authService.logout().subscribe(msg => {
+          this.authService.handleLogout()
+          this.router.navigate(['login'])
+        })
+        
+      }
+    );
+    
+
     // get the new cartCount everytime it changes
     this.cartCountSubscription = this.cartService.getCartCount().subscribe(
       (cart) => this.cartCount = cart
@@ -53,10 +77,13 @@ export class NavbarComponent implements OnInit{
     this.cartCountSubscription.unsubscribe();
   }
 
+  collapseToggle(newCollapse:boolean = !this.collapse) {
+    this.collapse = newCollapse
+  }
+
   logout() {
     this.authService.logout().subscribe(res => {
       this.authService.handleLogout()
-      localStorage.clear()
       this.router.navigate(['login']);
     });
   }

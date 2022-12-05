@@ -30,8 +30,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private respHandler:ResponseHandlerService,
-              private msg:MessagesService) { }
+              private respHandler:ResponseHandlerService) { }
 
   ngOnInit(): void {
     this.loggedInSubscription = this.authService.isLoggedIn().subscribe(isLoggedIn => {
@@ -75,7 +74,7 @@ export class LoginComponent implements OnInit {
         setTimeout(() => {
           if(this.respHandler.respPresent==true) this.respHandler.switchRespPresent();
           this.router.navigate(['home'])
-        },3000)
+        },1000)
         
         
       }
