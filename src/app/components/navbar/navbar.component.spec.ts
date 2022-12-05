@@ -12,7 +12,7 @@ import { ProductService, Cart } from 'src/app/services/product.service';
 
 import { NavbarComponent } from './navbar.component';
 
-fdescribe('NavbarComponent', () => {
+describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
   let cartServiceSpy: jasmine.SpyObj<CartService>;

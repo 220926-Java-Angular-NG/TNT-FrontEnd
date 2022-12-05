@@ -1,6 +1,7 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Subscription } from 'rxjs';
 import { of } from 'rxjs/internal/observable/of';
 import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/services/auth.service';
@@ -23,9 +24,9 @@ describe('LoginComponent', () => {
     // Mocking the services
     authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', ['isLoggedIn', 'getUser', 'updateUser', 'setUser', 'getFeaturedProducts']);
     respHandlerServiceSpy = jasmine.createSpyObj<ResponseHandlerService>('ResponseHandlerService', ['respPresent']);
-    authServiceSpy.isLoggedIn.and.returnValue(of(true));
+    authServiceSpy.isLoggedIn.and.returnValue(of(false));
     
-    respHandlerServiceSpy.respPresent = false;
+    respHandlerServiceSpy.respPresent = true;
 
     authServiceSpy.getFeaturedProducts.and.returnValue(of([product1]));
     await TestBed.configureTestingModule({

@@ -10,7 +10,7 @@ import { CartService } from 'src/app/services/cart.service';
 
 import { ProductCardComponent } from './product-card.component';
 
-fdescribe('ProductCardComponent', () => {
+describe('ProductCardComponent', () => {
   let component: ProductCardComponent;
   let fixture: ComponentFixture<ProductCardComponent>;
 
@@ -18,7 +18,7 @@ fdescribe('ProductCardComponent', () => {
    const product1:Product = new Product(1, 'p1', 8, 'product 1', 1.00, '../../assets/images/Testing.png', true);
    const product2:Product = new Product(2, 'p1', 1, 'product 1', 1.00, '../../assets/images/Testing.png', false);
    const product3:Product = new Product(3, 'p1', 1, 'product 1', 1.00, '../../assets/images/Testing.png', false);
-   const userMock:User = {id:1, wishList: [product1, product2]};
+   let userMock:User;
    
    // dependancy injection mocks
    let cartServiceSpy: jasmine.SpyObj<CartService>;
@@ -40,11 +40,11 @@ fdescribe('ProductCardComponent', () => {
     cartProduct1Mock = {id: 1, quantity: 1, product: product1, user: userMock};
     cartProduct2Mock = {id: 2, quantity: 1, product: product2, user: userMock};
     cartProduct3Mock = {id: 3, quantity: 1, product: product3, user: userMock};
-    
+    userMock = {id:1, wishList: [product1, product2]};
     
     authServiceSpy.isLoggedIn.and.returnValue(of(true));
     authServiceSpy.getUser.and.returnValue(userMock);
-    cartServiceSpy.getCart.and.returnValues(of([cartProduct1Mock, cartProduct2Mock]));
+    cartServiceSpy.getCart.and.returnValue(of([cartProduct1Mock, cartProduct2Mock]));
 
     
     await TestBed.configureTestingModule({
@@ -67,7 +67,6 @@ fdescribe('ProductCardComponent', () => {
     component.productInfo = product1;
     component.wishList = [product1, product2];
     fixture.detectChanges();
-    console.log('wishList testing', component.wishList);
   });
 
   afterEach(() => {
@@ -92,8 +91,57 @@ fdescribe('ProductCardComponent', () => {
     expect(component.cartItemId).toEqual(cartProduct3Mock.product?.id);
   });
 
- 
+  it('should check if the item is in the cart', () => {
+    component.productInfo = product2;
+    let _cartItems = [cartProduct1Mock, cartProduct2Mock];
 
+    _cartItems.forEach(item => {
+      if (item.product && component.productInfo.id === item.product.id) {
+        component.isInCart = true
+        component.cartItemId = item.id
+      }
+    })
+
+    expect(component.isInCart).toBe(true);
+  })
+
+  it('should check if the item is in the cart', () => {
+    component.productInfo = product3;
+    let _cartItems = [cartProduct1Mock, cartProduct2Mock];
+
+    _cartItems.forEach(item => {
+      if (item.product && component.productInfo.id === item.product.id) {
+        component.isInCart = true
+        component.cartItemId = item.id
+      }
+    })
+
+    expect(component.isInCart).toBe(false);
+  })
+
+
+  // TODO: Fix This Test!!!
+  // I am not sure what does this.cartService.removeFromCart(cartItem) returns,
+  // so i am not sure how to set up the subscribe properly
+  // it('should remove an item from the cart', () => {
+  //   component.productInfo = product2;
+  //   let _cartItems = [cartProduct1Mock, cartProduct2Mock];
+    
+  //   _cartItems.forEach(item => {
+  //     if (item.product && component.productInfo.id === item.product.id) {
+  //       component.isInCart = true
+  //       component.cartItemId = item.id
+  //     }
+  //   })
+  //   console.log(' remove isInCart Testing',component.isInCart);
+  //   cartServiceSpy.removeFromCart(cartProduct2Mock).forEach
+      
+    
+  //   component.removeFromCart();
+  //   expect(component.isInCart).toBe(false);
+  // });
+
+ 
   it('should check if product3 is in the wish list', () => {
     component.productInfo = product3;
     fixture.detectChanges();
