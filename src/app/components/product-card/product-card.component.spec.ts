@@ -10,7 +10,7 @@ import { CartService } from 'src/app/services/cart.service';
 
 import { ProductCardComponent } from './product-card.component';
 
-describe('ProductCardComponent', () => {
+fdescribe('ProductCardComponent', () => {
   let component: ProductCardComponent;
   let fixture: ComponentFixture<ProductCardComponent>;
 
@@ -65,13 +65,13 @@ describe('ProductCardComponent', () => {
     fixture = TestBed.createComponent(ProductCardComponent);
     component = fixture.componentInstance;
     component.productInfo = product1;
-    component.wishList = userMock.wishList;
+    component.wishList = [product1, product2];
     fixture.detectChanges();
     console.log('wishList testing', component.wishList);
   });
 
   afterEach(() => {
-    component.wishList = userMock.wishList;
+    component.wishList = [product1, product2];
   });
 
   it('should create', () => {
@@ -106,7 +106,7 @@ describe('ProductCardComponent', () => {
     authServiceSpy.setUser;
     component.addToWishList(product3);
     expect(component.wishList).toContain(product3);
-    component.wishList = userMock.wishList;
+    component.wishList = [product1, product2];
   });
 
   it('should remove product2 from the wish list', () => {
