@@ -1,12 +1,12 @@
 <div class="container text-center my-5">
 
-  <img src="../../../assets/images/rev-logo.png" width="30%" height="30%" alt="Revature">
+  <img src="../../../assets/images/rev-logo.png" width="250px" height="auto" alt="Revature">
   
-  <div class="mx-auto p-0">
+  <div class="mx-auto p-0 m-0 mt-3">
     <app-ui-ux-react [notice]="this.getResponse()" [noticeType]="this.responseType" *ngIf="this.logInFail()" (close) = "this.deleteResp()"></app-ui-ux-react>
   </div>
   
-  <form id="login-form" class="w-50 mx-auto mt-5" [formGroup]="loginForm">
+  <form id="login-form" class="col-10 col-md-4 mx-auto mt-3" [formGroup]="loginForm">
     <div class="form-group text-left">
       <label for="exampleInputEmail1">Email address</label>
       <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -24,17 +24,4 @@
 </div>
 
 <hr>
-<div class="container pt-4">
-  <p class="h4 text-center pb-4">
-    Featured Items
-  </p>
-  <div class="row m-0 d-flex justify-content-around text-center">
-     <div class="col-lg-4 col-xl-3 col-12 col-sm-10 col-md-6 mx-auto" *ngFor="let product of featuredProducts">
-          <app-product-card
-              class="cardListItem"
-              [productInfo]="product"
-          ></app-product-card> 
-      </div> 
-  </div>
-</div>
-
+<app-featured-items></app-featured-items>

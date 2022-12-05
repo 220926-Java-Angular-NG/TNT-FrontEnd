@@ -88,7 +88,7 @@ export class ProductDetailsComponent implements OnInit {
 
   // will add an item to the cart
   addToCart(product: Product): void {
-    let currUser: User = this.authService.getUser()
+    let currUser: User = {id: this.authService.getUser().id}
     let cartItem: CartProduct = {
       id: 0,
       quantity: this.quantity,
