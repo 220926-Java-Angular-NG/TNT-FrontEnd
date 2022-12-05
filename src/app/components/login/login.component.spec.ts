@@ -9,7 +9,7 @@ import { ResponseHandlerService } from 'src/app/services/response-handler.servic
 
 import { LoginComponent } from './login.component';
 
-describe('LoginComponent', () => {
+fdescribe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
@@ -19,12 +19,15 @@ describe('LoginComponent', () => {
   // Mocking featured product
   const product1:Product = new Product(1, 'p1', 8, 'product 1', 1.00, '../../assets/images/Testing.png', true);
   
+
   beforeEach(async () => {
 
     // Mocking the services
-    authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', ['isLoggedIn', 'getUser', 'updateUser', 'setUser', 'getFeaturedProducts']);
+    authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', ['isLoggedIn', 'getUser', 'updateUser', 'setUser', 'getFeaturedProducts', 'login']);
     respHandlerServiceSpy = jasmine.createSpyObj<ResponseHandlerService>('ResponseHandlerService', ['respPresent']);
-    authServiceSpy.isLoggedIn.and.returnValue(of(false));
+    authServiceSpy.isLoggedIn.and.returnValue(of());
+
+    authServiceSpy.login.and.returnValue(of());
     
     respHandlerServiceSpy.respPresent = true;
 
@@ -49,6 +52,29 @@ describe('LoginComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should allow user to login', () => {
+    const formData = {
+      "email": "something@somewhere.com",
+      "password": "8938ndisn@din"
+    };
+    component.loginForm.setValue(formData);
+    component.onSubmit();
+
+    expect(authServiceSpy.login).toHaveBeenCalledWith(formData.email, formData.password);
+  });
+
+  it('should not allow user to log in', () => {
+    const formData = {
+      "email": "invalidemail",
+      "password": "8938ndisn@din"
+    };
+    component.loginForm.setValue(formData);
+    component.onSubmit();
+
+    expect(component.loginForm.invalid).toEqual(true);
+    expect(authServiceSpy.login).toHaveBeenCalledTimes(1);
   });
 
 
