@@ -43,16 +43,21 @@ describe('ProductDetailsComponent', () => {
     cartProduct2Mock = {id: 2, quantity: 1, product: product2, user: userMock};
     cartProduct3Mock = {id: 3, quantity: 1, product: product3, user: userMock};
     cartMock = {cartCount: 2, products: [{product: product1, quantity: 1}, {product: product2, quantity: 1}], totalPrice: 2.00}
-    productServiceSpy.getProducts.and.returnValues(of([product1, product2]));
-    authServiceSpy.isLoggedIn.and.returnValue(of(true));
+    
     authServiceSpy.getUser.and.returnValue(userMock);
     productServiceSpy.getCart.and.returnValue(of(cartMock));
+    productServiceSpy.getProducts.and.returnValues(of([product1, product2]));
+    authServiceSpy.isLoggedIn.and.returnValue(of(true));
     cartServiceSpy.getCart.and.returnValue(of([cartProduct1Mock,cartProduct2Mock, cartProduct3Mock]));
 
 
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes(
-          [{path: 'login', component: BlankComponent}]
+          [{path: 'login', component: BlankComponent},
+          {path: 'wishlist', component: BlankComponent},
+          {path: 'cart', component: BlankComponent},
+          {path: 'changle-password', component: BlankComponent},
+          {path: 'home', component: BlankComponent}]
         )],
       declarations: [ ProductDetailsComponent ],
       providers: [{provide: ProductService, useValue: productServiceSpy},
