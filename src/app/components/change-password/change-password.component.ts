@@ -13,7 +13,7 @@ export class ChangePasswordComponent implements OnInit {
   changePasswordForm = new UntypedFormGroup({
     email: new UntypedFormControl(''),
     oldPassword: new UntypedFormControl(''),
-    newPassword: new UntypedFormControl
+    newPassword: new UntypedFormControl('')
   })
 
   constructor(private auth:AuthService,private router:Router) { }

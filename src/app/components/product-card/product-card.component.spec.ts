@@ -7,7 +7,6 @@ import { Product } from 'src/app/models/product';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
-
 import { ProductCardComponent } from './product-card.component';
 
 describe('ProductCardComponent', () => {
@@ -18,6 +17,7 @@ describe('ProductCardComponent', () => {
    const product1:Product = new Product(1, 'p1', 8, 'product 1', 1.00, '../../assets/images/Testing.png', true);
    const product2:Product = new Product(2, 'p1', 1, 'product 1', 1.00, '../../assets/images/Testing.png', false);
    const product3:Product = new Product(3, 'p1', 1, 'product 1', 1.00, '../../assets/images/Testing.png', false);
+
    let userMock:User;
    
    // dependancy injection mocks
@@ -67,6 +67,11 @@ describe('ProductCardComponent', () => {
     component.productInfo = product1;
     component.wishList = [product1, product2];
     fixture.detectChanges();
+    console.log('wishList testing', component.wishList);
+  });
+
+  afterEach(() => {
+    component.wishList = [product1, product2];
   });
 
   afterEach(() => {
@@ -169,8 +174,6 @@ describe('ProductCardComponent', () => {
     component.updateQuantity(4);
     expect(component.quantity).toBe(5);
   });
-
-
 
   @Component({
     selector: `blank-component`,
