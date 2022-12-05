@@ -12,7 +12,7 @@ import { Cart } from 'src/app/services/product.service';
 
 import { ProductCardComponent } from './product-card.component';
 
-fdescribe('ProductCardComponent', () => {
+describe('ProductCardComponent', () => {
   let component: ProductCardComponent;
   let fixture: ComponentFixture<ProductCardComponent>;
 

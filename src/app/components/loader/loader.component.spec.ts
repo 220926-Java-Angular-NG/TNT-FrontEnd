@@ -15,6 +15,7 @@ describe('LoaderComponent', () => {
     fixture = TestBed.createComponent(LoaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
   });
 
   it('should create', () => {
