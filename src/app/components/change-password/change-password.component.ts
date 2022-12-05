@@ -21,19 +21,7 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  /*
-
-
-
-
-
-  
-  */
-  onChange():void{
-
-
-
-    
+  onChange():void{  
     this.auth.changePassword(this.changePasswordForm.get('email')?.value,
                              this.changePasswordForm.get('oldPassword')?.value,
                              this.changePasswordForm.get("newPassword")?.value)
@@ -46,11 +34,6 @@ export class ChangePasswordComponent implements OnInit {
                                 this.router.navigate(['login']);
 
                               });
-
-
-    
-
-
   }
 
 }
