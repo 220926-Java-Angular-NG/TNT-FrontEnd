@@ -85,13 +85,6 @@ export class CheckoutComponent implements OnInit {
             console.log(res)
             this.router.navigate(['/home']);
           })
-          // let cart = {
-          //   cartCount: 0,
-          //   products: [],
-          //   totalPrice: 0.00
-          // };
-          // this.productService.setCart(cart);
-          
         } 
       );
     } else {

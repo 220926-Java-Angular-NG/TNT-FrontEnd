@@ -14,12 +14,12 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class CartComponent implements OnInit {
 
-  products: {
-    product: Product,
-    quantity: number
-  }[] = [];
+  // products: {
+  //   product: Product,
+  //   quantity: number
+  // }[] = [];
   totalPrice!: number;
-  cartProducts: Product[] = [];
+  // cartProducts: Product[] = [];
   userCartProducts:CartProduct[] = []
 
   constructor(
@@ -35,15 +35,15 @@ export class CartComponent implements OnInit {
         console.log(cart)
       })
       // ---- start deprecated ---- //
-    this.productService.getCart().subscribe(
-      (cart) => {
-        this.products = cart.products;
-        this.products.forEach(
-          (element) => this.cartProducts.push(element.product)
-        );
-        this.totalPrice = cart.totalPrice;
-      }
-    );
+    // this.productService.getCart().subscribe(
+    //   (cart) => {
+    //     this.products = cart.products;
+    //     this.products.forEach(
+    //       (element) => this.cartProducts.push(element.product)
+    //     );
+    //     this.totalPrice = cart.totalPrice;
+    //   }
+    // );
     // ---- end deprecated ---- //
   }
 
@@ -95,23 +95,23 @@ export class CartComponent implements OnInit {
     let user:User = this.authService.getUser()
     this.cartService.clearUserCart(user).subscribe(res => {
       // console.log(res)
-      this.cartService.updateCartCount(user.id)
+      // this.cartService.updateCartCount(user.id)
     })
 
     // ---- start deprecated ---- //
-    let cart = {
-      cartCount: 0,
-      products: [],
-      totalPrice: 0.00
-    };
-    this.productService.setCart(cart);
+    // let cart = {
+    //   cartCount: 0,
+    //   products: [],
+    //   totalPrice: 0.00
+    // };
+    // this.productService.setCart(cart);
     // ---- end deprecated ---- //
 
     this.router.navigate(['/home']);
   }
 
-  goToCheckout() {
+  // goToCheckout() {
 
-  }
+  // }
 
 }

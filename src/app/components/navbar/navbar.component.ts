@@ -52,15 +52,18 @@ export class NavbarComponent implements OnInit{
     // if this fails, then the user is not logged in
     // therefore log them out locally, and make them login again
     
+    // TODO: Need this after JWT implementation
     this.productService.getProducts().subscribe(
       (resp) => console.log('testing to see if the current login is useful'),
       (err) => {
-        this.authService.logout().subscribe(msg => {
+        this.authService.logout().subscribe(
+          (msg) => {
+              console.log('logged out')
+          })
           this.authService.handleLogout()
           this.router.navigate(['login'])
-        })
-        
-      }
+      },
+      () => console.log("Products Retrieved")
     );
     
 

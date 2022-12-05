@@ -49,6 +49,9 @@ export class WishListComponent implements OnInit {
     this.wishList = [];
 
     this.updateWishList(this.wishList);
+    setTimeout(()=>{
+      this.router.navigate(['/home'])
+    }, 500)
 
     this.router.navigate(['home']);
 

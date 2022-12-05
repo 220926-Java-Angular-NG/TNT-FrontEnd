@@ -9,12 +9,14 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { WishListComponent } from './components/wish-list/wish-list.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { ItemspageComponent } from './components/itemspage/itemspage.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   { path: "home", component: HomepageComponent },
+  { path: "items", component: ItemspageComponent},
   { path: "cart", component: CartComponent },
   { path: "checkout", component: CheckoutComponent },
   { path: "products/:id", component:ProductDetailsComponent},
