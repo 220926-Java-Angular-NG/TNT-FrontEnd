@@ -110,8 +110,8 @@ export class AuthService {
     return this.http.get<Product[]>(`${this.authUrl}/featured`);
   }
 
-  public changePassword(email: string, oldPassword: string,newPassword:string): Observable<Boolean> {
+  public changePassword(email: string, oldPassword: string,newPassword:string): Observable<boolean> {
     const payload = {email:email, oldPassword:oldPassword,newPassword:newPassword};
-    return this.http.post<Boolean>(`${this.authUrl}/change-password`, payload, {headers: environment.headers, withCredentials: environment.withCredentials});
+    return this.http.post<boolean>(`${this.authUrl}/change-password`, payload, {headers: environment.headers, withCredentials: environment.withCredentials});
   }
 }
