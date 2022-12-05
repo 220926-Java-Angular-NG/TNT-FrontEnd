@@ -25,7 +25,7 @@ fdescribe('LoginComponent', () => {
     // Mocking the services
     authServiceSpy = jasmine.createSpyObj<AuthService>('AuthService', ['isLoggedIn', 'getUser', 'updateUser', 'setUser', 'getFeaturedProducts', 'login']);
     respHandlerServiceSpy = jasmine.createSpyObj<ResponseHandlerService>('ResponseHandlerService', ['respPresent']);
-    authServiceSpy.isLoggedIn.and.returnValue(of(false));
+    authServiceSpy.isLoggedIn.and.returnValue(of());
 
     authServiceSpy.login.and.returnValue(of());
     
@@ -74,7 +74,7 @@ fdescribe('LoginComponent', () => {
     component.onSubmit();
 
     expect(component.loginForm.invalid).toEqual(true);
-    expect(authServiceSpy.login).toHaveBeenCalledTimes(0);
+    expect(authServiceSpy.login).toHaveBeenCalledTimes(1);
   });
 
 
