@@ -9,7 +9,7 @@ import { ResponseHandlerService } from 'src/app/services/response-handler.servic
 
 import { LoginComponent } from './login.component';
 
-fdescribe('LoginComponent', () => {
+describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
