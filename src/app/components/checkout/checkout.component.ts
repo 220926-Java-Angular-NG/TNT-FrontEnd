@@ -14,10 +14,10 @@ import { CartProduct } from 'src/app/models/cart';
 })
 export class CheckoutComponent implements OnInit {
 
-  products: {
-    product: Product,
-    quantity: number
-  }[] = [];
+  // products: {
+  //   product: Product,
+  //   quantity: number
+  // }[] = [];
   totalPrice!: number;
   cartProducts: Product[] = [];
   finalProducts: {id: number, quantity: number}[] = []; 
@@ -38,19 +38,23 @@ export class CheckoutComponent implements OnInit {
     country: new UntypedFormControl('', Validators.required)
   });
 
-  constructor(private authservice:AuthService, private cartService:CartService, private productService: ProductService, private router: Router) { }
+  constructor(
+    private authservice:AuthService, 
+    private cartService:CartService, 
+    private productService: ProductService, 
+    private router: Router) { }
 
   ngOnInit(): void {
     // dep
-    this.productService.getCart().subscribe(
-      (cart) => {
-        this.products = cart.products;
-        this.products.forEach(
-          (element) => this.cartProducts.push(element.product)
-        );
-        this.totalPrice = cart.totalPrice;
-      }
-    );
+    // this.productService.getCart().subscribe(
+    //   (cart) => {
+    //     this.products = cart.products;
+    //     this.products.forEach(
+    //       (element) => this.cartProducts.push(element.product)
+    //     );
+    //     this.totalPrice = cart.totalPrice;
+    //   }
+    // );
     // end dep
 
     this.cartService.getCart(this.authservice.getUser().id).subscribe(cart => {
@@ -77,15 +81,14 @@ export class CheckoutComponent implements OnInit {
 
     if(this.finalProducts.length > 0) {
       this.productService.purchase(this.finalProducts).subscribe(
-        (resp) => console.log(resp),
-        (err) => console.log(err),
-        () => {
-
+        (resp) => {
+          console.log(resp)
           this.cartService.clearUserCart(this.authservice.getUser()).subscribe(res => {
             console.log(res)
             this.router.navigate(['/home']);
           })
-        } 
+        },
+        (err) => console.log(err)
       );
     } else {
       this.router.navigate(['/home']);
