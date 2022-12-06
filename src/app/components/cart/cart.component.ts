@@ -14,12 +14,12 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class CartComponent implements OnInit {
 
-  products: {
-    product: Product,
-    quantity: number
-  }[] = [];
+  // products: {
+  //   product: Product,
+  //   quantity: number
+  // }[] = [];
   totalPrice!: number;
-  cartProducts: Product[] = [];
+  // cartProducts: Product[] = [];
   userCartProducts:CartProduct[] = []
 
   constructor(
@@ -31,18 +31,19 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
       this.cartService.getCart(this.authService.getUser().id).subscribe(cart => {
         this.userCartProducts = cart
+        this.calculateTotal()
         console.log(cart)
       })
       // ---- start deprecated ---- //
-    this.productService.getCart().subscribe(
-      (cart) => {
-        this.products = cart.products;
-        this.products.forEach(
-          (element) => this.cartProducts.push(element.product)
-        );
-        this.totalPrice = cart.totalPrice;
-      }
-    );
+    // this.productService.getCart().subscribe(
+    //   (cart) => {
+    //     this.products = cart.products;
+    //     this.products.forEach(
+    //       (element) => this.cartProducts.push(element.product)
+    //     );
+    //     this.totalPrice = cart.totalPrice;
+    //   }
+    // );
     // ---- end deprecated ---- //
   }
 
@@ -57,6 +58,7 @@ export class CartComponent implements OnInit {
         let index = this.userCartProducts.findIndex(item => item.id === cartId)
         if (index != -1) this.userCartProducts.splice(index, 1)
         this.cartService.updateCartCount(this.authService.getUser().id)
+        this.calculateTotal()
       })
     }
   }
@@ -73,7 +75,19 @@ export class CartComponent implements OnInit {
         let index = this.userCartProducts.findIndex(item => item.id === res.id)
         if (index != -1) this.userCartProducts.splice(index, 1, res)
         this.cartService.updateCartCount(this.authService.getUser().id)
+        this.calculateTotal()
       })
+    }
+  }
+
+  calculateTotal() {
+    if (this.userCartProducts) {
+      this.totalPrice = 0
+      this.userCartProducts.forEach(item => {
+        if (item.product)
+          this.totalPrice += (item.product.price * item.quantity)
+      })
+      this.totalPrice = parseFloat(this.totalPrice.toFixed(2))
     }
   }
 
@@ -81,19 +95,23 @@ export class CartComponent implements OnInit {
     let user:User = this.authService.getUser()
     this.cartService.clearUserCart(user).subscribe(res => {
       // console.log(res)
-      this.cartService.updateCartCount(user.id)
+      // this.cartService.updateCartCount(user.id)
     })
 
     // ---- start deprecated ---- //
-    let cart = {
-      cartCount: 0,
-      products: [],
-      totalPrice: 0.00
-    };
-    this.productService.setCart(cart);
+    // let cart = {
+    //   cartCount: 0,
+    //   products: [],
+    //   totalPrice: 0.00
+    // };
+    // this.productService.setCart(cart);
     // ---- end deprecated ---- //
 
     this.router.navigate(['/home']);
   }
+
+  // goToCheckout() {
+
+  // }
 
 }

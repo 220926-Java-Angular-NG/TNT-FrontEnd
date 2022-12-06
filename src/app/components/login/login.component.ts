@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { ResponseHandlerService } from 'src/app/services/response-handler.service';
-import { MessagesService } from 'src/app/services/messages.service';
+
 
 @Component({
   selector: 'app-login',
@@ -30,24 +30,35 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private respHandler:ResponseHandlerService,
-              private msg:MessagesService) { }
+              private respHandler:ResponseHandlerService) { }
 
   ngOnInit(): void {
     this.loggedInSubscription = this.authService.isLoggedIn().subscribe(isLoggedIn => {
-      if (isLoggedIn) this.router.navigate(['home'])
-    })
+      console.log(`Logged in is ${isLoggedIn}`);
+      if (isLoggedIn){
+        this.router.navigate(['home']);
+      } 
+    });
+    console.log(this.loggedInSubscription);
+    console.log("******************");
+
     this.authService.getFeaturedProducts().subscribe(
-      (products)=>this.featuredProducts=products
-    )
+          (products)=>this.featuredProducts=products
+        );
+    /*
+
+    
+    */
+    
     
   }
   
   onSubmit():void {
     this.authService.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).subscribe(
       (currUser) => {
+        console.log(currUser)
         // hide user's password
-        currUser.password = ''
+        // currUser.password = ''
         this.authService.setUser(currUser)
         this.authService.loggedIn=true;
         if(this.respHandler.respPresent==false) this.respHandler.switchRespPresent();
@@ -64,7 +75,7 @@ export class LoginComponent implements OnInit {
         setTimeout(() => {
           if(this.respHandler.respPresent==true) this.respHandler.switchRespPresent();
           this.router.navigate(['home'])
-        },3000)
+        },1000)
         
         
       }

@@ -1,30 +1,27 @@
-<img src="../../../assets/images/rev-logo.png" width="30%" height="30%" alt="Revature">
+<div class="container text-center my-5">
 
-<app-ui-ux-react [notice] = "this.getResponse()" [noticeType]="this.responseType" *ngIf="this.logInFail()" (close) = "this.deleteResp()"></app-ui-ux-react>
-
-<form id="login-form" [formGroup]="loginForm">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">Ensure you enter the correct email</small>
+  <img src="../../../assets/images/petShopLogo.png" width="250px" height="auto" alt="Revature">
+  
+  <div class="mx-auto p-0 m-0 mt-3">
+    <app-ui-ux-react [notice]="this.getResponse()" [noticeType]="this.responseType" *ngIf="this.logInFail()" (close) = "this.deleteResp()"></app-ui-ux-react>
   </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <button class="btn btn-primary" (click)="onSubmit()">Login</button>
-  <button class="btn btn-primary" (click)="register()">Register</button>
-</form>
-
-
-<div class="container">
-  <div class="row align-items-start">
-     <div class="col" *ngFor="let product of featuredProducts">
-          <app-product-card
-              class="cardListItem"
-              [productInfo]="product"
-          ></app-product-card> 
-      </div> 
-  </div>
+  
+  <form id="login-form" class="col-10 col-md-4 mx-auto mt-3" [formGroup]="loginForm">
+    <div class="form-group text-left">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      <small id="emailHelp" class="form-text text-muted">Ensure you enter the correct email</small>
+    </div>
+    <div class="form-group text-left">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <div class="row d-flex justify-content-around">
+      <button class="btn w-25 btn-success" (click)="onSubmit()">Login</button>
+      <button class="btn w-25 btn-primary" (click)="register()">Register</button>
+    </div>
+  </form>
 </div>
 
+<hr>
+<app-featured-items></app-featured-items>

@@ -18,8 +18,12 @@ export class CartProductComponent implements OnInit {
   }
 
   updateQuantity(change:number): void {
-    if (this.cartProduct.quantity + change >= 1)
-      this.updateCart(this.cartProduct.quantity + change)
+    let newQuan = this.cartProduct.quantity + change
+    // make sure they cannot add more than available stock
+    if (this.cartProduct.product && newQuan > this.cartProduct.product.quantity) 
+      this.updateCart(this.cartProduct.product.quantity)
+    else if (newQuan >= 1)
+      this.updateCart(newQuan)
   }
 
   updateCart(quantity:number):void {

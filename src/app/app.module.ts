@@ -18,6 +18,10 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { UiUxReactComponent } from './components/ui-ux-react/ui-ux-react.component';
 import { WishListComponent } from './components/wish-list/wish-list.component';
 import { CartProductComponent } from './components/cart-product/cart-product.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { ItemspageComponent } from './components/itemspage/itemspage.component';
+import { FeaturedItemsComponent } from './components/featured-items/featured-items.component';
+import { DiscoveryComponent } from './components/discovery/discovery.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,11 @@ import { CartProductComponent } from './components/cart-product/cart-product.com
     UiUxReactComponent,
     WishListComponent,
     ChangePasswordComponent,
-    CartProductComponent
+    CartProductComponent,
+    LoaderComponent,
+    ItemspageComponent,
+    FeaturedItemsComponent,
+    DiscoveryComponent
   ],
   imports: [
     BrowserModule,

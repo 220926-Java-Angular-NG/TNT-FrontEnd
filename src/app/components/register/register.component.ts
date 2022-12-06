@@ -18,9 +18,8 @@ export class RegisterComponent implements OnInit {
     email: new UntypedFormControl('', [Validators.required,
       Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     password: new UntypedFormControl('', [
-      Validators.required
-      // turning this validator off for ease of testing purposes
-      // ,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$')
+      Validators.required,
+      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$')
     ])
   })
 
@@ -46,9 +45,9 @@ export class RegisterComponent implements OnInit {
   
   onSubmit(): void {
     if(this.registerForm.valid){
-    this.authService.register(this.registerForm.get('fname')?.value, this.registerForm.get('lname')?.value, this.registerForm.get('email')?.value, this.registerForm.get('password')?.value, [])
+    this.authService.register(this.registerForm.get('fname')?.value, this.registerForm.get('lname')?.value, this.registerForm.get('email')?.value, this.registerForm.get('password')?.value)
     .subscribe(
-      () => console.log("New user registered"),
+      (res) => console.log(res, "New user registered"),
       (err) => {console.log(err);
       this.registerFail = true},
       () => this.router.navigate(['login'])

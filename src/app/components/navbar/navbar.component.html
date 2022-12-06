@@ -1,17 +1,59 @@
 <nav class="navbar navbar-light bg-light"  *ngIf="isLoggedIn">
-    <h4>
-        <img src="../../../assets/images/favicon.png" width="8%" height="8%" alt="Revature">
-        Revature Swag Shop
+    <h4 class=" m-0 p-0" [routerLink]="['/home']" style="cursor: pointer; width: 50%;"  >
+        <img src="../../../assets/images/petFavicon.png" width="55px" height="auto" alt="Revature">
+        Animal Swag Shop
     </h4>
-    <form class="form-inline">
-        <button class="btn btn-light" [routerLink]="['/wishlist']">
+    <form class="form-inline col-6 col-md-4 d-flex justify-content-end">
+        <!-- <button class="btn btn-light" [routerLink]="['/wishlist']">
             Wish List
+        </button> -->
+        <button data-bs-toggle="Cart" data-bs-placement="top" title="Go To Cart" class="btn btn-light" [routerLink]="['/cart']">
+            <i class="fa fa-shopping-cart" style="font-size: 25px;"></i>
+            <span class="badge badge-info rounded-circle" style="position: relative; top: -20px; left: -7px;">{{cartCount}}</span>
         </button>
-        <button class="btn btn-light" [routerLink]="['/cart']">
-            Cart
-            <span class="badge badge-info">{{cartCount}}</span>
-        </button>
-        <button class="btn btn-outline-danger my-2 my-sm-0" [routerLink]="['/change-password']">Change Password</button>
-        <button class="btn btn-outline-danger my-2 my-sm-0" (click)="logout();">Logout</button>
+
+
+        <div class="dropleft">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <!-- <i class="fa fa-user-circle"></i> -->
+                <i class="fa-solid fa-shield-dog" style="font-size: 25px;"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <h1 class="w-100 m-0 navbar-brand p-0 text-center" href="#" >{{userInfo?.firstName}}'s Account</h1>
+                <hr>
+              <a class="dropdown-item" [routerLink]="['/wishlist']"><i class="fa-solid fa-paw mr-3"></i> Wishlist</a>
+              <a class="dropdown-item" [routerLink]="['/cart']"><i class="fa fa-shopping-cart mr-3"></i> Cart</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/change-password']"><i class="fa fa-solid fa-wrench mr-3"></i> Change Password</a>
+              <a class="dropdown-item" (click)="logout();" style="cursor: pointer;"><i class="fa-solid fa-right-from-bracket mr-3"></i> Logout</a>
+            </div>
+          </div>
+
+
+
+
+        <!-- <button class="btn btn-outline-danger my-2 my-sm-0" [routerLink]="['/change-password']">Change Password</button> -->
+        
+
+        <!-- <div class="navbar-toggler  w-50 sticky-bottom px-3 mx-2" id="navbarTogglerDemo01" *ngIf="collapse">
+            <h1 class="navbar-brand p-0 text-center" href="#" >{{userInfo?.firstName}}'s Account</h1>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/items">Products</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" routerLink="/profile">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="logout();">Logout</a>
+              </li>
+            </ul>
+          </div> -->
+          <!-- <button class="btn btn-outline-info my-2 my-sm-0" (click)="collapseToggle();"><i class="fa fa-user-circle"></i></button> -->
+
+          
+
+
+        <!-- <button class="btn btn-outline-info my-2 my-sm-0" (click)="logout();">Logout</button> -->
     </form>
 </nav>
