@@ -5,7 +5,7 @@ export const environment = {
   baseUrl: "http://ec2-54-205-23-209.compute-1.amazonaws.com",
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'http://localhost:4200',
+    'Access-Control-Allow-Origin': 'http://tntfrontendrev.s3-website-us-east-1.amazonaws.com',
     'Authorization': 'Bearer '
   }
 };
