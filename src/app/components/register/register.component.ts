@@ -18,9 +18,8 @@ export class RegisterComponent implements OnInit {
     email: new UntypedFormControl('', [Validators.required,
       Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     password: new UntypedFormControl('', [
-      Validators.required
-      // turning this validator off for ease of testing purposes
-      // ,Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$')
+      Validators.required,
+      Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$')
     ])
   })
 
