@@ -128,23 +128,23 @@ describe('ProductCardComponent', () => {
   // TODO: Fix This Test!!!
   // I am not sure what does this.cartService.removeFromCart(cartItem) returns,
   // so i am not sure how to set up the subscribe properly
-  // it('should remove an item from the cart', () => {
-  //   component.productInfo = product2;
-  //   let _cartItems = [cartProduct1Mock, cartProduct2Mock];
+  it('should remove an item from the cart', () => {
+    component.productInfo = product2;
+    let _cartItems = [cartProduct1Mock, cartProduct2Mock];
     
-  //   _cartItems.forEach(item => {
-  //     if (item.product && component.productInfo.id === item.product.id) {
-  //       component.isInCart = true
-  //       component.cartItemId = item.id
-  //     }
-  //   })
-  //   console.log(' remove isInCart Testing',component.isInCart);
-  //   cartServiceSpy.removeFromCart(cartProduct2Mock).forEach
+    _cartItems.forEach(item => {
+      if (item.product && component.productInfo.id === item.product.id) {
+        component.isInCart = true
+        component.cartItemId = item.id
+      }
+    })
+    console.log(' remove isInCart Testing',component.isInCart);
+    cartServiceSpy.removeFromCart.and.returnValue(of(true));
       
     
-  //   component.removeFromCart();
-  //   expect(component.isInCart).toBe(false);
-  // });
+    component.removeFromCart();
+    expect(component.isInCart).toBe(false);
+  });
 
  
   it('should check if product3 is in the wish list', () => {
