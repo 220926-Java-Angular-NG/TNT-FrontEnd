@@ -24,7 +24,13 @@ export class CartService {
   }
 
   updateCartCount(userId:number) {
-    this.getCart(userId).subscribe(cart => this.setCartCount(cart.length))
+    this.getCart(userId).subscribe(cart => {
+			let count = 0
+			cart.forEach(cartItem => {
+				count += cartItem.quantity
+			})
+			this.setCartCount(count)
+		})
   }
 
   public getCart(userId:number): Observable<CartProduct[]> {
